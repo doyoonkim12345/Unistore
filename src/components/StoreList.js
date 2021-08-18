@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import {EachListContainer, ListContainer} from '../components/style'
+import {ListContainer} from '../components/style'
 import EachStore from './EachStoreCreater/EachStore';
 
 const stores = [
