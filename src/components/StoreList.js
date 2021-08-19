@@ -38,7 +38,7 @@ const stores = [
             mainTitle:'5천원 할인',
             max:0,
             explain:'매주 화,목요일에는\n금계찜닭과 함께 화.목.한 식사하세요.',
-            imgUrl:'	http://goldjjimdak.com/new/upload/menu_01/2021_02_22/hero_kTu9N_2021_02_22_12_47_00.jpg',
+            imgUrl:'http://goldjjimdak.com/new/upload/menu_01/2021_02_22/hero_kTu9N_2021_02_22_12_47_00.jpg',
             color:'khaki'
         },
         {
@@ -56,7 +56,7 @@ const stores = [
             mainTitle:'5천원 할인',
             max:0,
             explain:'뉴욕야시장 메뉴로\n 한여름밤의 육~쾌한 파티!',
-            imgUrl:'	http://www.newyork-yasijang.net/images/sub02/sig_nysteak.png',
+            imgUrl:'http://www.newyork-yasijang.net/images/sub02/sig_nysteak.png',
             color:'Wheat'
         },
         {
@@ -74,7 +74,7 @@ const stores = [
             mainTitle:'5천원 할인',
             max:1,
             explain:'8월 매주 목/금\n배달 주문시에만 가능합니다.',
-            imgUrl:'http://soonsoochicken.com/images/sub/menu_1.jpg',
+            imgUrl:'https://soonsoochicken.com/images/sub/menu_1.jpg',
             color:'Palegreen'
         },
 ]
