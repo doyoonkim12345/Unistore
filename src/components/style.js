@@ -9,12 +9,6 @@ export const ListContainer = styled.div`
     flex-wrap: wrap;
 `
 
-export const EachListContainer = styled.div``
-
-
-
-
-
 
 export const EachStoreBack = styled.div`
     width : 20rem;

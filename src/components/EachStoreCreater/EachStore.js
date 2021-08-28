@@ -13,7 +13,7 @@ const storeTestData = {
     map:'https://map.kakao.com/link/to/카카오판교오피스,37.402056,127.108212'
 }
 
-export default function EachStore({}){
+export default function EachStore(){
     return(
             <EachStoreBack color={storeTestData.color}>
                 <StoreImg imgUrl={storeTestData.imgUrl}></StoreImg>
