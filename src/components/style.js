@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const TitleContainer = styled.h1`
+    text-align: center
+`
+
 export const ListContainer = styled.div`
     width: 100vw;
     height:100%;
@@ -11,7 +15,7 @@ export const ListContainer = styled.div`
 
 
 export const EachStoreBack = styled.div`
-    width : 20rem;
+    width : 24rem;
     height : 21.875rem;
     margin-top:1rem;
     margin-left:0.5rem;
@@ -27,7 +31,7 @@ export const EachStoreBack = styled.div`
 
 export const StoreImg= styled.div`
     width:100%;
-    height:11.25rem;
+    height:13rem;
     border-radius: 10px 10px 0 0;
     background-image: url(${props=> props.imgUrl});
     background-size: cover;
@@ -56,12 +60,12 @@ export const Contents=styled.div`
     height:10.625rem;
     .Name {
         font-size: 16px;
-        margin: 0.5rem;
+        margin: 0.25rem;
     }
     .Always{
         text-align: start;
         padding-left: 12px;
-        margin-top: 10px;
+        margin-top: 0.25rem;
         font-size: 18px;
     }
 
@@ -72,7 +76,7 @@ export const Buttons=styled.div`
     flex-direction:row;
     display:flex;
     justify-content: space-around;
-    margin-top: 1.2rem;
+    margin-top: 0.5rem;
     a{
         color: black;
         width: 10rem;
