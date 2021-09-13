@@ -33,6 +33,7 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
 
     const [isOn, setIsOn] = useState(true)
     const [isMenuOn, setIsMenuOn] = useState(false)
+    const [isImgOn, setIsImgOn] = useState(false)
 
     useEffect(
         ()=>{
@@ -91,15 +92,20 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
 
     const onClick = () => {
         setIsMenuOn(false)
+        setIsImgOn(false)
     }
     
     const onMenuClick = () => {
         setIsMenuOn(true)
     }
 
+    const onImgClick = () => {
+        setIsImgOn(true) 
+    }
+
     return (
     <ContentBox>
-        <ImgBox imgUrl={rtmData.imgUrl} onClick={onMenuClick}>
+        <ImgBox imgUrl={rtmData.imgUrl} onClick={onImgClick}>
             {isOn&&
             <TimeBox>
                 <span className='discountContainer'>{rtmData.realTime}</span>
@@ -113,7 +119,7 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
             <a href={`https://map.kakao.com/link/map/${storeData.name},${storeData.addressXY&&storeData.addressXY[1]},${storeData.addressXY&&storeData.addressXY[0]}`}><FaMapMarkerAlt size={16}/></a>
             <button onClick={onMenuClick}><MdRestaurantMenu size={18}/></button>
         </ButtonContainer>
-        {isMenuOn && <MenuViewer imgUrl={rtmData.imgUrl}>
+        {(isMenuOn||isImgOn) && <MenuViewer imgUrl={isMenuOn ? /*메뉴이미지*/ rtmData.menuUrl: rtmData.imgUrl/*메인이미지*/}>
             <button onClick={onClick}><CgClose size={30} /></button>
         </MenuViewer>}
     </ContentBox>)

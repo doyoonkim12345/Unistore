@@ -18,6 +18,7 @@ const defaultRtmData = {
     startTime: 9,
     endTime: 10,
     imgUrl:'https://www.eguljak.com/upload/product/3696654736_oTZCrFQ3_20210726032314.jpg',
+    menuUrl:'https://www.eguljak.com/upload/product/3696654736_oTZCrFQ3_20210726032314.jpg',
     startAm: true, // true= am false= pm 
     endAm: true
 }
@@ -31,22 +32,6 @@ function Info(){
     const history = useHistory()
 
     useEffect(() => {
-        /*dbService.collection("rtmstoredata").doc(userObj.uid).onSnapshot((snapshot) => {
-            console.log(snapshot)
-            try{
-                const contextArray = snapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data()
-                    
-                }))
-                setContexts(contextArray)
-            } catch (e){
-                console.log(e)
-            }
-            
-        }
-
-        )*/
         
             setTimeout(
                 async () => {
@@ -63,26 +48,34 @@ function Info(){
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const onSubmit = async (event) => {
-        event.preventDefault()
-
+    const imgToUrl = async (img) => {
         let imgUrl = ""
-        if(rtmData.imgUrl !== "" ){
+        if(img !== ""){
             try{
                 const attachmentRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`) //각각의 게시물에 첨부되어 있는이미지를 가져옴
-                const response = await attachmentRef.putString(rtmData.imgUrl, "data_url")
+                const response = await attachmentRef.putString(img, "data_url")
                 imgUrl = await response.ref.getDownloadURL()
             } catch (error){
-                imgUrl = rtmData.imgUrl
+                imgUrl = img
                 console.log(error)
             }
         }
+        return imgUrl
+    }
+
+    const onSubmit = async (event) => {
+        event.preventDefault()
+
+        const imgUrl = await imgToUrl(rtmData.imgUrl)
+        const menuUrl = await imgToUrl(rtmData.menuUrl)
 
         const contextObj = {
             ...rtmData,
             createdAt: Date.now(),
             createrId: userObj.uid,
-            imgUrl,  
+            imgUrl,
+            menuUrl
+            
         }
 
         await dbService.collection("rtmstoredata").doc(userObj.uid).set(contextObj)
@@ -108,8 +101,9 @@ function Info(){
     }
 
     const onFileChange = (event) => {
+        console.log(event)
         const {
-            target: { files } 
+            target: { files, name} 
             }= event
         try {
             const theFile = files[0]
@@ -120,7 +114,7 @@ function Info(){
                 } = finishedEvent
                 setRtmData({
                     ...rtmData,
-                    imgUrl: result
+                    [name]: result
                 })
             }
             reader.readAsDataURL(theFile )
@@ -145,8 +139,8 @@ function Info(){
                 <button name='endAm' type='button' onClick={onToggleChange}>{rtmData.endAm ? 'pm' : 'am'}</button>
 
                 <input type="submit"/>
-                <input type="file" accept="image/*" onChange={onFileChange} required={!rtmData.imgUrl}></input>
-
+                <input name='imgUrl' type="file" accept="image/*" onChange={onFileChange} required={!rtmData.imgUrl}></input>
+                <input name='menuUrl' type="file" accept="image/*" onChange={onFileChange} required={!rtmData.menuUrl}></input>
             </form>
         </div>
     )
