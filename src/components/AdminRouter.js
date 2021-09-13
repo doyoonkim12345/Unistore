@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Auth from '../routes/Auth'
 import Info from '../routes/Info'
 import StoreList from '../pages/user/StoreList'
