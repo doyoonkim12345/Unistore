@@ -63,9 +63,33 @@ export const ExplainBox = styled.p`
 export const ButtonContainer = styled.div`
     display:flex;
     justify-content: space-around;
+    button{
+        background: none;
+        border:none;
+    }
     a{
         text-decoration: none;
         color: black;
         font-size:11px;
+    }
+`
+
+export const MenuViewer = styled.div`
+    position:absolute;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(${props=> props.imgUrl});
+    background-color: rgba(255, 255, 255, 0.7);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display:flex;
+    justify-content:flex-end;
+    button{
+        background: none;
+        border: none;
+        height:3rem;
     }
 `

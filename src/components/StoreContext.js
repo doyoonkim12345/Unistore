@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { ButtonContainer, ContentBox, ExplainBox, ImgBox, TimeBox, TitleBox } from './newStyle'
+import { ButtonContainer, ContentBox, ExplainBox, ImgBox, MenuViewer, TimeBox, TitleBox } from './newStyle'
 import {FaPhoneAlt, FaMapMarkerAlt} from 'react-icons/fa'    
+import {MdRestaurantMenu} from 'react-icons/md'
+import {CgClose} from 'react-icons/cg'
 
 const defaultStoreData = {
     name:'란탕수육 이대점',
@@ -30,6 +32,7 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
     const [hour, setHour] = useState(0)
 
     const [isOn, setIsOn] = useState(true)
+    const [isMenuOn, setIsMenuOn] = useState(false)
 
     useEffect(
         ()=>{
@@ -86,9 +89,17 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
         return countTime
     }
 
+    const onClick = () => {
+        setIsMenuOn(false)
+    }
+    
+    const onMenuClick = () => {
+        setIsMenuOn(true)
+    }
+
     return (
     <ContentBox>
-        <ImgBox imgUrl={rtmData.imgUrl}>
+        <ImgBox imgUrl={rtmData.imgUrl} onClick={onMenuClick}>
             {isOn&&
             <TimeBox>
                 <span className='discountContainer'>{rtmData.realTime}</span>
@@ -100,7 +111,10 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
         <ButtonContainer>
             <a href={`tel:${storeData.phone}`}><FaPhoneAlt size={16} /></a>
             <a href={`https://map.kakao.com/link/map/${storeData.name},${storeData.addressXY&&storeData.addressXY[1]},${storeData.addressXY&&storeData.addressXY[0]}`}><FaMapMarkerAlt size={16}/></a>
+            <button onClick={onMenuClick}><MdRestaurantMenu size={18}/></button>
         </ButtonContainer>
-        
+        {isMenuOn && <MenuViewer imgUrl={rtmData.imgUrl}>
+            <button onClick={onClick}><CgClose size={30} /></button>
+        </MenuViewer>}
     </ContentBox>)
 }
