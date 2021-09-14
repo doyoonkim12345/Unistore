@@ -4,6 +4,8 @@ import { dbService } from '../fBase'
 import { logInfo } from '../App'
 import LogOut from '../routes/Profile'
 import { useHistory } from 'react-router-dom'
+import { InputForm } from './storeStyle'
+import {CgClose} from 'react-icons/cg'
 
 export default function StoreDataInput({setCheckFirstTime, discountOff=false }){
 
@@ -75,6 +77,10 @@ export default function StoreDataInput({setCheckFirstTime, discountOff=false }){
         setIsPoped(true)
     }
 
+    const onCloseClick = () => {
+        setIsPoped(false)
+    }
+
     const getXY = async (Address) => {
         let geocoder = new kakao.maps.services.Geocoder();
 
@@ -134,15 +140,18 @@ export default function StoreDataInput({setCheckFirstTime, discountOff=false }){
 
     return(
     <>  
-        <form onSubmit={onSubmit}>
+        <InputForm onSubmit={onSubmit}>
+            <h2>가게 정보를 알려주세요</h2>
+            <h4>사용자들에게 표시되는 정보입니다</h4>
             <input value={storeKind} onChange={onKindChange} type="text" placeholder="가게 종류(ex 한식, 중식 ..)" required/>
             <input value={name} onChange={onNameChange} type="text" placeholder="가게이름" required/>
-            <input value={phone} onChange={onPhoneChange} type="text" placeholder="가게 전화번호" required/>
+            <input value={phone} onChange={onPhoneChange} type="tel" placeholder="가게 전화번호" required/>
             {!discountOff && <input value ={discount} onChange={onDiscoutChange} type="text" placeholder="학생대상 할인 정보를 입력해주세요!" required />}
-            {!discountOff && <LogOut />}
-            {isPoped ? <DaumPostCode onComplete={onComplete}/> : <button onClick={onClick}>{isAddress? isAddress :  "가게주소찾기"}</button>}
+            {isPoped ? <div className='postcode'><button onClick={onCloseClick}><CgClose size={30} /></button><DaumPostCode onComplete={onComplete}/></div> : <button onClick={onClick}>{isAddress? isAddress :  "가게주소찾기"}</button>}
+            
             <button type="submit" required>확인</button>
-        </form>
+            {!discountOff && <LogOut />}
+        </InputForm>
     </>
     )
 }

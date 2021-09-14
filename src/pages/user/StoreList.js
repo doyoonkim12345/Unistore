@@ -134,8 +134,6 @@ export default function StoreList(){
 
 })
 
-
-
     const menulist = sortedFrontData.concat(sortedMidData).concat(sortedEndData).map(mapCallback)
 
 

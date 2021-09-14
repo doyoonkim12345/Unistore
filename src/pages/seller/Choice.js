@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import StoreDataInput from '../../components/StoreDataInput'
 import { dbService } from '../../fBase'
 import { logInfo } from '../../App'
-import Profile from '../../routes/Profile'
 import { LinkList } from '../../components/choiceStyle'
 
 function Choice(){
@@ -50,15 +49,14 @@ function Choice(){
         :   checkFirstTime ?
                 <>
                 <StoreDataInput setCheckFirstTime={setCheckFirstTime} discountOff={true} />
-                <Profile />
                 </>
             
             :    <LinkList>
                     <p>
-                        <Link to="/info">가게정보</Link>
+                        <Link className='default-link' to="/info">가게정보</Link>
                     </p>
                     <p>
-                        <Link to="/profile">실시간 할인정보</Link>
+                        <Link className='default-link' to="/profile">실시간 할인정보</Link>
                     </p>
                 </LinkList>
         }
