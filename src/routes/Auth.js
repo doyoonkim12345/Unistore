@@ -1,5 +1,7 @@
 import React,{useState} from 'react'
+import { LoginBox, LoginInputForm } from '../components/authStyle'
 import { authService, firebaseInstance } from '../fBase'
+import {TitleContainer} from '../components/style'
 
 function Auth(){
     const [email, setEmail] = useState("")
@@ -46,18 +48,19 @@ function Auth(){
 
     const toggleAccount = () => setNewAccount(prev => !prev)
     return (
-    <div>
-        <form onSubmit={onSubmit}>
-            <input name="email" type='text' placeholder="E-mail" required value={email} onChange={onChange}></input>
-            <input name="password" type="password" placeholder="Password" required value={password} onChange={onChange}></input>
-            <input type="submit" value={newAccount ? "Create Account" : "Login"}></input>
-        </form>
-        <span onClick={toggleAccount}>{newAccount ? 'Log in' : 'Create Account'}</span>
+    <LoginBox>
+        <TitleContainer>FineApple</TitleContainer>
+        <LoginInputForm onSubmit={onSubmit}>
+            <input name="email" type='text' placeholder="이메일" required value={email} onChange={onChange}></input>
+            <input name="password" type="password" placeholder="비밀번호" required value={password} onChange={onChange}></input>
+            <button type="submit" >{newAccount ? "Create Account" : "로그인"}</button>
+        </LoginInputForm>
+        <span onClick={toggleAccount}>{newAccount ? '로그인' : 'Create Account'}</span>
         {error}
         <div>
             <button name="google" onClick={onSocialClick}>구글로 로그인 하기</button>
         </div>
-    </div>
+    </LoginBox>
     )
 }
 export default Auth

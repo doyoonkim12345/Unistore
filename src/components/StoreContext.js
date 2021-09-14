@@ -34,6 +34,8 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
     const [isOn, setIsOn] = useState(true)
     const [isMenuOn, setIsMenuOn] = useState(false)
     const [isImgOn, setIsImgOn] = useState(false)
+    const [isBefore, setIsBefore] = useState('')
+    
 
     useEffect(
         ()=>{
@@ -43,7 +45,10 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
                 nowDate = nowDate.getTime()
 
                 let startDate = new Date()//이벤트 시작 시간
-                startDate.setHours(checkAm(rtmData.startAm, rtmData.startTime-2), 0,0)
+                startDate.setHours(checkAm(rtmData.startAm, rtmData.startTime), 0,0)
+
+                let beforestartDate = new Date()//이벤트 시작 시간
+                beforestartDate.setHours(checkAm(rtmData.startAm, rtmData.startTime-2), 0,0)
 
                 let endDate = new Date()//이벤트 끝나는 시간
                 endDate.setHours(checkAm(rtmData.endAm, rtmData.endTime), 0, 0)
@@ -52,10 +57,11 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
                     endDate.setTime(endDate.getTime()+(1000 * 60 * 60 * 24))
                 }
 
-                console.log(checkAm(rtmData.startAm, rtmData.startTime-2), checkAm(rtmData.endAm, rtmData.endTime))
+                console.log(checkAm(rtmData.startAm, rtmData.startTime), checkAm(rtmData.endAm, rtmData.endTime))
 
                 if((startDate < nowDate  && nowDate < endDate)){
                     setIsOn(true)
+                    setIsBefore('')
                     const countHour = String(
                         Math.floor((endDate-nowDate)%(1000 * 60 *60*24) / (1000 * 60 * 60))).padStart(2, '0')
                     setHour(countHour)
@@ -69,9 +75,17 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
                     setSecond(countSecond)
 
                     console.log('yes')
+                }else if(beforestartDate < nowDate && nowDate < startDate){
+                    
+                    setIsOn(true)
+                    const startAt = `${checkAm(rtmData.startAm, rtmData.startTime)-12}시부터`
+                    
+                    setIsBefore(startAt)
+                    console.log(isBefore)
                 }else{
                     console.log('nope')
                     setIsOn(false)
+                    setIsBefore('')
                     clearInterval(repeat)
                 }
 
@@ -79,7 +93,8 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
             }, 1000)
             return ()=>clearInterval(repeat)
         }
-        
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ,[rtmData])
 
     const checkAm = (isAM, time) => {
@@ -109,8 +124,9 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
             {isOn&&
             <TimeBox>
                 <span className='discountContainer'>{rtmData.realTime}</span>
-                <span className='timeContianer'>{hour}:{minute}:{second}</span>
+                <span className='timeContianer'>{isBefore ? isBefore : `${hour}:${minute}:${second}`}</span>
             </TimeBox>}
+            
         </ImgBox>
         <TitleBox>{`${storeData.name}( ${storeData.storeKind} )`}</TitleBox>
         <ExplainBox>{storeData.discount}</ExplainBox>

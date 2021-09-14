@@ -62,11 +62,64 @@ export default function StoreList(){
     
     const mapCallback = (eachData)=>{
         const storeData = store.find(x => x.id === eachData.createrId)
-        console.log(storeData)
         return <StoreContext rtmData={eachData} storeData={storeData}/>
     }
 
-    const menulist = rtmData.map(mapCallback)
+    const checkAm = (isAM, time) => {
+      let countTime = parseInt(time)
+      if(isAM){
+          countTime += 12
+      } 
+      return countTime
+    }
+
+    const sortedFrontData = rtmData.filter((data)=>{
+
+                let nowDate = new Date()//현재시간
+
+                nowDate = nowDate.getTime()
+
+                let startDate = new Date()//이벤트 시작 시간
+                startDate.setHours(checkAm(data.startAm, data.startTime-2), 0,0)
+
+                let endDate = new Date()//이벤트 끝나는 시간
+                endDate.setHours(checkAm(data.endAm, data.endTime), 0, 0)
+
+                if(endDate <= startDate){
+                    endDate.setTime(endDate.getTime()+(1000 * 60 * 60 * 24))
+                }
+
+                console.log(checkAm(data.startAm, data.startTime-2), checkAm(data.endAm, data.endTime))
+
+                return startDate < nowDate  && nowDate < endDate
+
+    })
+
+    const sortedEndData = rtmData.filter((data)=>{
+
+      let nowDate = new Date()//현재시간
+
+      nowDate = nowDate.getTime()
+
+      let startDate = new Date()//이벤트 시작 시간
+      startDate.setHours(checkAm(data.startAm, data.startTime-2), 0,0)
+
+      let endDate = new Date()//이벤트 끝나는 시간
+      endDate.setHours(checkAm(data.endAm, data.endTime), 0, 0)
+
+      if(endDate <= startDate){
+          endDate.setTime(endDate.getTime()+(1000 * 60 * 60 * 24))
+      }
+
+      console.log(checkAm(data.startAm, data.startTime-2), checkAm(data.endAm, data.endTime))
+
+      return !(startDate < nowDate  && nowDate < endDate)
+
+})
+
+
+
+    const menulist = sortedFrontData.concat(sortedEndData).map(mapCallback)
 
 
     return(

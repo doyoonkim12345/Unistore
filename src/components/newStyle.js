@@ -93,3 +93,9 @@ export const MenuViewer = styled.div`
         height:3rem;
     }
 `
+
+export const StartTime = styled.div`
+    width:0px;
+    height: 0px;
+    border:50px solid red;
+`

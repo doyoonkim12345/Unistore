@@ -4,6 +4,7 @@ import StoreDataInput from '../../components/StoreDataInput'
 import { dbService } from '../../fBase'
 import { logInfo } from '../../App'
 import Profile from '../../routes/Profile'
+import { LinkList } from '../../components/choiceStyle'
 
 function Choice(){
     const [init, setInit] = useState(true)
@@ -49,14 +50,14 @@ function Choice(){
                 <Profile />
                 </>
             
-            :    <ul>
-                    <li>
+            :    <LinkList>
+                    <p>
                         <Link to="/info">가게정보</Link>
-                    </li>
-                    <li>
+                    </p>
+                    <p>
                         <Link to="/profile">실시간 할인정보</Link>
-                    </li>
-                </ul>
+                    </p>
+                </LinkList>
         }
     </>)}
 export default Choice
