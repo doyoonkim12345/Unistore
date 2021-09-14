@@ -75,7 +75,7 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
                     setSecond(countSecond)
 
                     console.log('yes')
-                }else if(beforestartDate < nowDate && nowDate < startDate){
+                }else if(beforestartDate < nowDate && nowDate <= startDate){
                     
                     setIsOn(true)
                     const startAt = `${checkAm(rtmData.startAm, rtmData.startTime)-12}시부터`

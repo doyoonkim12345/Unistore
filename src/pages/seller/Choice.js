@@ -23,6 +23,7 @@ function Choice(){
     useEffect(()=>{
         setTimeout(
             async () => {
+                try{
                 //firestore에 유저의 uid로 내용이 있는 지확인
                 const data = await dbService.collection('storedata').doc(userObj.uid).get()
                 //console.log(userObj.uid)
@@ -32,7 +33,9 @@ function Choice(){
                     setCheckFirstTime(true)
                 }
                 setInit(false)
-                
+                }catch(e){
+                    console.log(e)
+                }
             } ,0)
             //console.log(init, checkFirstTime)
         }

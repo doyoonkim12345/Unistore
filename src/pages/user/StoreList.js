@@ -80,7 +80,7 @@ export default function StoreList(){
                 nowDate = nowDate.getTime()
 
                 let startDate = new Date()//이벤트 시작 시간
-                startDate.setHours(checkAm(data.startAm, data.startTime-2), 0,0)
+                startDate.setHours(checkAm(data.startAm, data.startTime), 0,0)
 
                 let endDate = new Date()//이벤트 끝나는 시간
                 endDate.setHours(checkAm(data.endAm, data.endTime), 0, 0)
@@ -93,6 +93,23 @@ export default function StoreList(){
 
                 return startDate < nowDate  && nowDate < endDate
 
+    })
+
+    const sortedMidData = rtmData.filter((data)=>{
+      let nowDate = new Date()//현재시간
+
+      nowDate = nowDate.getTime()
+
+      let startDate = new Date()//이벤트 시작 시간
+      startDate.setHours(checkAm(data.startAm, data.startTime), 0,0)
+
+      let beforestartDate = new Date()//이벤트 시작 시간
+      beforestartDate.setHours(checkAm(data.startAm, data.startTime-2), 0,0)
+
+      let endDate = new Date()//이벤트 끝나는 시간
+      endDate.setHours(checkAm(data.endAm, data.endTime), 0, 0)
+
+      return beforestartDate < nowDate && nowDate <= startDate
     })
 
     const sortedEndData = rtmData.filter((data)=>{
@@ -119,7 +136,7 @@ export default function StoreList(){
 
 
 
-    const menulist = sortedFrontData.concat(sortedEndData).map(mapCallback)
+    const menulist = sortedFrontData.concat(sortedMidData).concat(sortedEndData).map(mapCallback)
 
 
     return(

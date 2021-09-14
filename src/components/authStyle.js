@@ -39,5 +39,9 @@ export const LoginInputForm = styled.form`
         border:none;
         color: white;
         font-size: 18px;
+        transition: 0.4s;
+        :hover{
+            background-color: black;
+        }
     }
 `
