@@ -40,11 +40,19 @@ function Choice(){
         }
         ,[userObj])
 
-        
+        const initStyle = {
+            width:'100%',
+            height:'100vh',
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'center'
+        }
+
     return (
     <>
         {
-        init ? <p>안녕하세요 vis 입니다!</p>
+        init ? 
+            <div style={initStyle}><h1>FineApple</h1></div>
         
         :   checkFirstTime ?
                 <>

@@ -30,6 +30,7 @@ function Info(){
 
     const [storeData, setStoreData] = useState({})
     const [rtmData, setRtmData] = useState({})
+    const [dataStatus, setDataStatus] = useState(false)
     const history = useHistory()
 
     useEffect(() => {
@@ -39,9 +40,10 @@ function Info(){
                     //firestore에 유저의 uid로 내용이 있는 지확인
                     const data1 = await dbService.collection('storedata').doc(userObj.uid).get()
                     const data2 = await dbService.collection('rtmstoredata').doc(userObj.uid).get()
-                    console.log(data1.data(), data2.data())
+                    console.log(data2.data())
+                    setDataStatus(data2.data() ? data2.data() : '')
                     data1.data() ? setStoreData(data1.data()) : setStoreData(defaultStoreData)
-                    data2.data() ? setRtmData(data2.data()) : setRtmData(defaultRtmData)
+                    data2.data() ? setRtmData(data2.data()) : setRtmData(defaultRtmData)  
 
                 } ,0)
             
@@ -80,10 +82,15 @@ function Info(){
         }
 
         await dbService.collection("rtmstoredata").doc(userObj.uid).set(contextObj)
+
+        alert('이벤트가 등록 되었습니다!')
+
         setRtmData({})
         setStoreData({})
         history.push('/login')
+        
     }
+
     const onChange = (e) => {
         const { value, name } = e.target; // 우선 e.target 에서 name 과 value 를 추출
         setRtmData({
@@ -125,6 +132,22 @@ function Info(){
         }
     }
 
+    const onDeleteClick = () => {
+        dbService.collection("rtmstoredata").doc(userObj.uid).delete().then(() => {
+            console.log(dataStatus)
+            alert('실시간 이벤트가 종료되었습니다!')
+            history.push('/login')
+        }).catch((error) => {
+            alert(error)
+        });
+    }
+
+    const onRejectSubmit = (event) => {
+        event.preventDefault()
+        console.log(dataStatus)
+        console.log(rtmData)
+        alert('메인이미지와 메뉴이미지를 넣어주세요!')
+    }
     //const onClearAttachmentClick = () => setRtmData({...rtmData, imgUrl:''})
 
     return (
@@ -134,8 +157,10 @@ function Info(){
                 <h3>미리보기</h3>
                 <h4>아래와 같이 보여집니다</h4>
                 <StoreContext rtmData={rtmData} storeData={storeData} isSet={true}/>
+                {dataStatus && <button className='rtmOff' onClick={onDeleteClick}>실시간 이벤트 종료</button>}
             </div>
-            <RtmInputForm onSubmit={onSubmit}>
+            <RtmInputForm onSubmit={((dataStatus.imgUrl===defaultRtmData.imgUrl)) || ((dataStatus.menuUrl===defaultRtmData.menuUrl)) ? onRejectSubmit : onSubmit}>
+                
                 <input name='realTime' value={rtmData.realTime} onChange={onChange} type="text" placeholder="할인 내용" maxLength={120} required />
                 <div>
                     <input name='startTime' value={rtmData.startTime} onChange={onChange} type="number" min='0' max='12' placeholder="시작 시간" required/>
@@ -145,9 +170,11 @@ function Info(){
                     <input name='endTime' value={rtmData.endTime} onChange={onChange} type="number"  min='0' max='12' placeholder="끝나는 시간" required/>
                     <button name='endAm' type='button' onClick={onToggleChange}>{rtmData.endAm ? 'pm' : 'am'}</button>
                 </div>
-                <input name='imgUrl' type="file" accept="image/*" onChange={onFileChange} required={!rtmData.imgUrl}></input>
-                <input name='menuUrl' type="file" accept="image/*" onChange={onFileChange} required={!rtmData.menuUrl}></input>
-                <input type="submit"/>
+                <button type='button'><label for="imgUrl" >메인이미지</label></button>
+                <button type='button'><label for="menuUrl" >메뉴이미지</label></button>
+                <input style={{display:'none'}} id='imgUrl' name='imgUrl' type="file" accept="image/*" onChange={onFileChange} ></input>
+                <input style={{display:'none'}} id='menuUrl' name='menuUrl' type="file" accept="image/*" onChange={onFileChange} ></input>
+                <button type="submit">업로드</button>
             </RtmInputForm>
         </RtmEventContainer>
     )

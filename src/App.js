@@ -9,6 +9,14 @@ export default function App() {
     const [isLoggedin, setIsLoggedIn] = useState(false)
     const [userObj, setUserObj] = useState(null)
 
+    const initStyle = {
+        width:'100%',
+        height:'100vh',
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center'
+    }
+
     useEffect(() => {
         authService.onAuthStateChanged((user) =>{
                 if(user){
@@ -26,6 +34,6 @@ export default function App() {
     <logInfo.Provider value={{isLoggedin, userObj}}>
       <AdminRouter/>
     </logInfo.Provider>
-    : "initializing"}</>)
+    : <h1 style={initStyle}>로딩중...</h1>}</>)
 
 }
