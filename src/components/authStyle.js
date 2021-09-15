@@ -40,7 +40,7 @@ export const LoginInputForm = styled.form`
         color: white;
         font-size: 18px;
         transition: 0.4s;
-        :hover{
+        :active{
             background-color: black;
         }
     }

@@ -31,7 +31,7 @@ export const RtmEventContainer=styled.div`
         color: white;
         font-size: 15px;
         transition: 0.4s;
-        :hover{
+        :active{
             background-color: black;
         }
     }
@@ -49,12 +49,12 @@ export const RtmInputForm = styled.form`
         height: 4rem;
         margin-bottom: 1.375rem;
         border-radius: 20px;
-        background-color: #8A4C7D;
+        background-color: ${props => props.color ||  '#8A4C7D'};
         border:none;
         color: white;
         font-size: 18px;
         transition: 0.4s;
-        :hover{
+        :active{
             background-color: black;
         }
     }
@@ -84,6 +84,10 @@ export const RtmInputForm = styled.form`
     div input{
         width:15rem;
         border-radius: 20px 0 0 20px;
+    }
+
+    .rtmOn{
+        background-color: #1E90FF;
     }
 
 `

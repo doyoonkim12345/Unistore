@@ -21,13 +21,13 @@ export const LinkList = styled.div`
         display:flex;
         justify-content: center;
         align-items: center;
-        
+
         .default-link{
             text-decoration: none;
             color: white;
             font-size: 18px;
         }
-        :hover{
+        :active{
             background-color: black;
         }
 

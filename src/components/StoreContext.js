@@ -78,7 +78,7 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
                 }else if(beforestartDate < nowDate && nowDate <= startDate){
                     
                     setIsOn(true)
-                    const startAt = `${checkAm(rtmData.startAm, rtmData.startTime)-12}시부터`
+                    const startAt = `${checkAm(rtmData.startAm, rtmData.startTime)>=12 ? checkAm(rtmData.startAm, rtmData.startTime)-12 : checkAm(rtmData.startAm, rtmData.startTime)}시부터`
                     
                     setIsBefore(startAt)
                     console.log(isBefore)

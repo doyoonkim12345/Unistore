@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TitleContainer = styled.h1`
+export const TitleContainer = styled.div`
     text-align: center
 `
 

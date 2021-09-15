@@ -139,7 +139,7 @@ export default function StoreList(){
 
     return(
         <>
-            <TitleContainer>FineApple</TitleContainer>
+            <TitleContainer><h1>FineApple</h1><h4>오직 대학생을 위한 할인 혜택</h4></TitleContainer>
             <ListContainer>
                 {menulist}
             </ListContainer>

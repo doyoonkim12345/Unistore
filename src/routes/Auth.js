@@ -49,7 +49,7 @@ function Auth(){
     const toggleAccount = () => setNewAccount(prev => !prev)
     return (
     <LoginBox>
-        <TitleContainer>FineApple</TitleContainer>
+        <TitleContainer><h1>FineApple</h1><h4>오직 대학생을 위한 할인 혜택</h4></TitleContainer>
         <LoginInputForm onSubmit={onSubmit}>
             <input name="email" type='text' placeholder="이메일" required value={email} onChange={onChange}></input>
             <input name="password" type="password" placeholder="비밀번호" required value={password} onChange={onChange}></input>

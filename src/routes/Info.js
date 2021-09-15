@@ -68,7 +68,7 @@ function Info(){
 
     const onSubmit = async (event) => {
         event.preventDefault()
-
+        alert('이벤트가 등록 됩니다! 잠시만 기다려주세요!')
         const imgUrl = await imgToUrl(rtmData.imgUrl)
         const menuUrl = await imgToUrl(rtmData.menuUrl)
 
@@ -80,7 +80,7 @@ function Info(){
             menuUrl
             
         }
-
+        
         await dbService.collection("rtmstoredata").doc(userObj.uid).set(contextObj)
 
         alert('이벤트가 등록 되었습니다!')
@@ -159,7 +159,7 @@ function Info(){
                 <StoreContext rtmData={rtmData} storeData={storeData} isSet={true}/>
                 {dataStatus && <button className='rtmOff' onClick={onDeleteClick}>실시간 이벤트 종료</button>}
             </div>
-            <RtmInputForm onSubmit={((dataStatus.imgUrl===defaultRtmData.imgUrl)) || ((dataStatus.menuUrl===defaultRtmData.menuUrl)) ? onRejectSubmit : onSubmit}>
+            <RtmInputForm onSubmit={((rtmData.imgUrl===defaultRtmData.imgUrl)) || ((rtmData.menuUrl===defaultRtmData.menuUrl)) ? onRejectSubmit : onSubmit}>
                 
                 <input name='realTime' value={rtmData.realTime} onChange={onChange} type="text" placeholder="할인 내용" maxLength={120} required />
                 <div>
@@ -170,11 +170,11 @@ function Info(){
                     <input name='endTime' value={rtmData.endTime} onChange={onChange} type="number"  min='0' max='12' placeholder="끝나는 시간" required/>
                     <button name='endAm' type='button' onClick={onToggleChange}>{rtmData.endAm ? 'pm' : 'am'}</button>
                 </div>
-                <button type='button'><label for="imgUrl" >메인이미지</label></button>
-                <button type='button'><label for="menuUrl" >메뉴이미지</label></button>
+                <button type='button'><label for="imgUrl" >{(rtmData.imgUrl===defaultRtmData.imgUrl)?'메인이미지':'업로드 완료'}</label></button>
+                <button type='button'><label for="menuUrl" >{(rtmData.menuUrl===defaultRtmData.menuUrl)?'메뉴이미지':'업로드 완료'}</label></button>
                 <input style={{display:'none'}} id='imgUrl' name='imgUrl' type="file" accept="image/*" onChange={onFileChange} ></input>
                 <input style={{display:'none'}} id='menuUrl' name='menuUrl' type="file" accept="image/*" onChange={onFileChange} ></input>
-                <button type="submit">업로드</button>
+                <button className='rtmOn' type="submit">{dataStatus?'이벤트 수정':'실시간 이벤트 ON'}</button>
             </RtmInputForm>
         </RtmEventContainer>
     )

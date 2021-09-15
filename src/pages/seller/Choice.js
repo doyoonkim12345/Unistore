@@ -45,20 +45,20 @@ function Choice(){
             height:'100vh',
             display:'flex',
             alignItems:'center',
-            justifyContent:'center'
+            justifyContent:'center',
+            flexDirection:'column'
         }
 
     return (
     <>
         {
         init ? 
-            <div style={initStyle}><h1>FineApple</h1></div>
+            <div style={initStyle}><h1>FineApple</h1><br/><h3>오직 대학생을 위한 할인 혜택</h3></div>
         
         :   checkFirstTime ?
                 <>
                 <StoreDataInput setCheckFirstTime={setCheckFirstTime} discountOff={true} />
                 </>
-            
             :    <LinkList>
                     <p>
                         <Link className='default-link' to="/info">가게정보</Link>
