@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid"
 import { logInfo } from '../App'
 import { useHistory } from 'react-router-dom'
 import StoreContext from '../components/StoreContext'
+import { RtmEventContainer, RtmInputForm } from '../components/infoStyle'
 
 const defaultStoreData = {
     name:'란탕수육 이대점',
@@ -127,22 +128,28 @@ function Info(){
     //const onClearAttachmentClick = () => setRtmData({...rtmData, imgUrl:''})
 
     return (
-        <div>
-            <StoreContext rtmData={rtmData} storeData={storeData} isSet={true}/>
-            
-            <form onSubmit={onSubmit}>
+        <RtmEventContainer>
+            <h2>실시간 이벤트를 알려주세요!</h2>
+            <div className='preview'>
+                <h3>미리보기</h3>
+                <h4>아래와 같이 보여집니다</h4>
+                <StoreContext rtmData={rtmData} storeData={storeData} isSet={true}/>
+            </div>
+            <RtmInputForm onSubmit={onSubmit}>
                 <input name='realTime' value={rtmData.realTime} onChange={onChange} type="text" placeholder="할인 내용" maxLength={120} required />
-                <input name='startTime' value={rtmData.startTime} onChange={onChange} type="number" max='12' placeholder="시작 시간" required/>
-                <button name='startAm' type='button' onClick={onToggleChange}>{rtmData.startAm ? 'pm' : 'am'}</button>
-
-                <input name='endTime' value={rtmData.endTime} onChange={onChange} type="number" max='12' placeholder="끝나는 시간" required/>
-                <button name='endAm' type='button' onClick={onToggleChange}>{rtmData.endAm ? 'pm' : 'am'}</button>
-
-                <input type="submit"/>
+                <div>
+                    <input name='startTime' value={rtmData.startTime} onChange={onChange} type="number" min='0' max='12' placeholder="시작 시간" required/>
+                    <button name='startAm' type='button' onClick={onToggleChange}>{rtmData.startAm ? 'pm' : 'am'}</button>
+                </div>
+                <div>
+                    <input name='endTime' value={rtmData.endTime} onChange={onChange} type="number"  min='0' max='12' placeholder="끝나는 시간" required/>
+                    <button name='endAm' type='button' onClick={onToggleChange}>{rtmData.endAm ? 'pm' : 'am'}</button>
+                </div>
                 <input name='imgUrl' type="file" accept="image/*" onChange={onFileChange} required={!rtmData.imgUrl}></input>
                 <input name='menuUrl' type="file" accept="image/*" onChange={onFileChange} required={!rtmData.menuUrl}></input>
-            </form>
-        </div>
+                <input type="submit"/>
+            </RtmInputForm>
+        </RtmEventContainer>
     )
 }
 

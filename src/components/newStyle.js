@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
 export const ContentBox = styled.div`
-    width: 11.25rem;//사진 넓이 변경
+    width: 11rem;//사진 넓이 변경
     height: 15.5rem;
-    margin: 0.3rem;
+    margin: 0.25rem;
+    background-color: white;
     //background-color: skyblue;
 `
 
 export const ImgBox = styled.div`
     width:100%;
-    height:11.25rem; // 사진 세로 변경
+    height:11rem; // 사진 세로 변경
     background-image: url(${props=> props.imgUrl});
     background-size: cover;
     background-repeat: no-repeat;

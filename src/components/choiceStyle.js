@@ -18,10 +18,10 @@ export const LinkList = styled.div`
         color: white;
         font-size: 18px;
         transition: 0.4s;
-
         display:flex;
         justify-content: center;
         align-items: center;
+        
         .default-link{
             text-decoration: none;
             color: white;
