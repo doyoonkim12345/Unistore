@@ -12,20 +12,13 @@ import "firebase/firestore";
 import "firebase/storage"
 
 const firebaseConfig = {
-  /*apiKey: "AIzaSyBRqbUs76EuofAWzrndFobnGfz3KTJ7Y8M",
-  authDomain: "unistoreback.firebaseapp.com",
-  projectId: "unistoreback",
-  storageBucket: "unistoreback.appspot.com",
-  messagingSenderId: "478496477541",
-  appId: "1:478496477541:web:67901dbffab042e192518c",
-  measurementId: "G-Q5EYVGRTVV"*/
-  apiKey: "AIzaSyD3HS6_bCPZMQRi3P50Hp_TNnN6Rlfrk3Q",
-  authDomain: "examples-c0475.firebaseapp.com",
-  databaseURL: "https://examples-c0475.firebaseio.com",
-  projectId: "examples-c0475",
-  storageBucket: "examples-c0475.appspot.com",
-  messagingSenderId: "59826551283",
-  appId: "1:59826551283:web:3e94357e39626661287a86"
+  apiKey: "AIzaSyBIqe_nsnTbiyw69gsBFYuIoE5XnT0JQDc",
+  authDomain: "unistore-722da.firebaseapp.com",
+  projectId: "unistore-722da",
+  storageBucket: "unistore-722da.appspot.com",
+  messagingSenderId: "506807421988",
+  appId: "1:506807421988:web:0daca9768ab3fbdf0e9cb1",
+  measurementId: "G-5MZDSHNVPJ"
 };
 
 firebase.initializeApp(firebaseConfig)

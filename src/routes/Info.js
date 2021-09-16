@@ -18,10 +18,11 @@ const defaultRtmData = {
     realTime:'맥주1+1',
     startTime: 9,
     endTime: 10,
-    imgUrl:'https://www.eguljak.com/upload/product/3696654736_oTZCrFQ3_20210726032314.jpg',
-    menuUrl:'https://www.eguljak.com/upload/product/3696654736_oTZCrFQ3_20210726032314.jpg',
+    imgUrl:'https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400_7.png',
+    menuUrl:'https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400_7.png',
     startAm: true, // true= am false= pm 
-    endAm: true
+    endAm: true,
+    status:true // true-> on false -> off
 }
 
 function Info(){
@@ -77,8 +78,8 @@ function Info(){
             createdAt: Date.now(),
             createrId: userObj.uid,
             imgUrl,
-            menuUrl
-            
+            menuUrl,
+            status:true
         }
         
         await dbService.collection("rtmstoredata").doc(userObj.uid).set(contextObj)
@@ -132,14 +133,20 @@ function Info(){
         }
     }
 
-    const onDeleteClick = () => {
-        dbService.collection("rtmstoredata").doc(userObj.uid).delete().then(() => {
-            console.log(dataStatus)
-            alert('실시간 이벤트가 종료되었습니다!')
-            history.push('/login')
-        }).catch((error) => {
-            alert(error)
-        });
+    const onDeleteClick = async(event) => {
+        event.preventDefault()
+
+        const contextObj = {
+            ...rtmData,
+            status:false,
+            createdAt: Date.now(),
+            createrId: userObj.uid,
+        }
+        
+        await dbService.collection("rtmstoredata").doc(userObj.uid).set(contextObj)
+        
+        alert('실시간 이벤트가 종료되었습니다!')
+        history.push('/login')
     }
 
     const onRejectSubmit = (event) => {
@@ -157,7 +164,7 @@ function Info(){
                 <h3>미리보기</h3>
                 <h4>아래와 같이 보여집니다</h4>
                 <StoreContext rtmData={rtmData} storeData={storeData} isSet={true}/>
-                {dataStatus && <button className='rtmOff' onClick={onDeleteClick}>실시간 이벤트 종료</button>}
+                {dataStatus.status && <button className='rtmOff' onClick={onDeleteClick}>실시간 이벤트 종료</button>}
             </div>
             <RtmInputForm onSubmit={((rtmData.imgUrl===defaultRtmData.imgUrl)) || ((rtmData.menuUrl===defaultRtmData.menuUrl)) ? onRejectSubmit : onSubmit}>
                 
@@ -174,7 +181,7 @@ function Info(){
                 <button type='button'><label for="menuUrl" >{(rtmData.menuUrl===defaultRtmData.menuUrl)?'메뉴이미지':'업로드 완료'}</label></button>
                 <input style={{display:'none'}} id='imgUrl' name='imgUrl' type="file" accept="image/*" onChange={onFileChange} ></input>
                 <input style={{display:'none'}} id='menuUrl' name='menuUrl' type="file" accept="image/*" onChange={onFileChange} ></input>
-                <button className='rtmOn' type="submit">{dataStatus?'이벤트 수정':'실시간 이벤트 ON'}</button>
+                <button className='rtmOn' type="submit">{dataStatus.status?'이벤트 수정':'실시간 이벤트 ON'}</button>
             </RtmInputForm>
         </RtmEventContainer>
     )

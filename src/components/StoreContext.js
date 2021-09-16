@@ -13,12 +13,13 @@ const defaultStoreData = {
 }
 
 const defaultRtmData = {
-    realTime:'맥주1+1',
+    realTime:'ex)맥주1+1',
     startTime: 9,
     endTime: 10,
-    imgUrl:'https://www.eguljak.com/upload/product/3696654736_oTZCrFQ3_20210726032314.jpg',
+    imgUrl:'https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400_7.png',
     startAm: false, // true= am false= pm 
-    endAm: false
+    endAm: false,
+    status: true
 }
 
 
@@ -59,7 +60,7 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
 
                 console.log(checkAm(rtmData.startAm, rtmData.startTime), checkAm(rtmData.endAm, rtmData.endTime))
 
-                if((startDate < nowDate  && nowDate < endDate)){
+                if((startDate < nowDate  && nowDate < endDate)&&rtmData.status){
                     setIsOn(true)
                     setIsBefore('')
                     const countHour = String(
@@ -75,7 +76,7 @@ export default function StoreContext({storeData=defaultStoreData, rtmData=defaul
                     setSecond(countSecond)
 
                     console.log('yes')
-                }else if(beforestartDate < nowDate && nowDate <= startDate){
+                }else if((beforestartDate < nowDate && nowDate <= startDate)&&rtmData.status){
                     
                     setIsOn(true)
                     const startAt = `${checkAm(rtmData.startAm, rtmData.startTime)>=12 ? checkAm(rtmData.startAm, rtmData.startTime)-12 : checkAm(rtmData.startAm, rtmData.startTime)}시부터`

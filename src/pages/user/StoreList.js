@@ -61,7 +61,7 @@ export default function StoreList(){
     }, [])
     
     const mapCallback = (eachData)=>{
-        const storeData = store.find(x => x.id === eachData.createrId)
+        const storeData = store.find(x => (x.id === eachData.createrId))
         return <StoreContext rtmData={eachData} storeData={storeData}/>
     }
 
@@ -91,7 +91,7 @@ export default function StoreList(){
 
                 console.log(checkAm(data.startAm, data.startTime-2), checkAm(data.endAm, data.endTime))
 
-                return startDate < nowDate  && nowDate < endDate
+                return (startDate < nowDate  && nowDate < endDate)&&data.status
 
     })
 
@@ -109,7 +109,7 @@ export default function StoreList(){
       let endDate = new Date()//이벤트 끝나는 시간
       endDate.setHours(checkAm(data.endAm, data.endTime), 0, 0)
 
-      return beforestartDate < nowDate && nowDate <= startDate
+      return (beforestartDate < nowDate && nowDate <= startDate)&&data.status
     })
 
     const sortedEndData = rtmData.filter((data)=>{
@@ -130,7 +130,7 @@ export default function StoreList(){
 
       console.log(checkAm(data.startAm, data.startTime-2), checkAm(data.endAm, data.endTime))
 
-      return !(startDate < nowDate  && nowDate < endDate)
+      return !(startDate < nowDate  && nowDate < endDate)||!data.status
 
 })
 
