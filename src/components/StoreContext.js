@@ -11,6 +11,7 @@ import {
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { MdRestaurantMenu } from "react-icons/md";
 import { CgClose } from "react-icons/cg";
+import { checkAm, checkDate } from "./modules";
 
 const defaultStoreData = {
   name: "란탕수육 이대점",
@@ -50,55 +51,43 @@ export default function StoreContext({
   useEffect(
     () => {
       const repeat = setInterval(() => {
-        let nowDate = new Date(); //현재시간
-        nowDate = nowDate.getTime();
+        const checkedDate = checkDate(rtmData);
 
-        let startDate = new Date(); //이벤트 시작 시간
-        startDate.setHours(checkAm(rtmData.startAm, rtmData.startTime), 0, 0);
-
-        let beforestartDate = new Date(); //이벤트 시작 시간
-        beforestartDate.setHours(
-          checkAm(rtmData.startAm, rtmData.startTime - 2),
-          0,
-          0
-        );
-
-        let endDate = new Date(); //이벤트 끝나는 시간
-        endDate.setHours(checkAm(rtmData.endAm, rtmData.endTime), 0, 0);
-
-        if (endDate <= startDate) {
-          endDate.setTime(endDate.getTime() + 1000 * 60 * 60 * 24);
-        }
-
-        console.log(
-          checkAm(rtmData.startAm, rtmData.startTime),
-          checkAm(rtmData.endAm, rtmData.endTime)
-        );
-
-        if (startDate < nowDate && nowDate < endDate && rtmData.status) {
+        if (
+          checkedDate.startDate < checkedDate.nowDate &&
+          checkedDate.nowDate < checkedDate.endDate &&
+          rtmData.status
+        ) {
           setIsOn(true);
           setIsBefore("");
           const countHour = String(
             Math.floor(
-              ((endDate - nowDate) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+              ((checkedDate.endDate - checkedDate.nowDate) %
+                (1000 * 60 * 60 * 24)) /
+                (1000 * 60 * 60)
             )
           ).padStart(2, "0");
           setHour(countHour);
 
           const countMinute = String(
-            Math.floor(((endDate - nowDate) % (1000 * 60 * 60)) / (1000 * 60))
+            Math.floor(
+              ((checkedDate.endDate - checkedDate.nowDate) % (1000 * 60 * 60)) /
+                (1000 * 60)
+            )
           ).padStart(2, "0");
           setMinute(countMinute);
 
           const countSecond = String(
-            Math.floor(((endDate - nowDate) % (1000 * 60)) / 1000)
+            Math.floor(
+              ((checkedDate.endDate - checkedDate.nowDate) % (1000 * 60)) / 1000
+            )
           ).padStart(2, "0");
           setSecond(countSecond);
 
           console.log("yes");
         } else if (
-          beforestartDate < nowDate &&
-          nowDate <= startDate &&
+          checkedDate.beforestartDate < checkedDate.nowDate &&
+          checkedDate.nowDate <= checkedDate.startDate &&
           rtmData.status
         ) {
           setIsOn(true);
@@ -124,14 +113,6 @@ export default function StoreContext({
     [rtmData]
   );
 
-  const checkAm = (isAM, time) => {
-    let countTime = parseInt(time);
-    if (isAM) {
-      countTime += 12;
-    }
-    return countTime;
-  };
-
   const onClick = () => {
     setIsMenuOn(false);
     setIsImgOn(false);
@@ -147,7 +128,7 @@ export default function StoreContext({
 
   return (
     <ContentBox>
-      <ImgBox imgUrl={rtmData.imgUrl} onClick={onImgClick}>
+      <ImgBox imgUrl={storeData.imgUrl} onClick={onImgClick}>
         {isOn && (
           <TimeBox>
             <span className="discountContainer">{rtmData.realTime}</span>
@@ -178,8 +159,8 @@ export default function StoreContext({
         <MenuViewer
           imgUrl={
             isMenuOn
-              ? /*메뉴이미지*/ rtmData.menuUrl
-              : rtmData.imgUrl /*메인이미지*/
+              ? /*메뉴이미지*/ storeData.menuUrl
+              : storeData.imgUrl /*메인이미지*/
           }
         >
           <button onClick={onClick}>

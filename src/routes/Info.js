@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import { dbService, storageService } from "../fBase";
-import { v4 as uuidv4 } from "uuid";
+import { dbService } from "../fBase";
+
 import { logInfo } from "../App";
 import { useHistory } from "react-router-dom";
 import StoreContext from "../components/StoreContext";
@@ -57,23 +57,6 @@ function Info() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const imgToUrl = async (img) => {
-    let imgUrl = "";
-    if (img !== "") {
-      try {
-        const attachmentRef = storageService
-          .ref()
-          .child(`${userObj.uid}/${uuidv4()}`); //각각의 게시물에 첨부되어 있는이미지를 가져옴
-        const response = await attachmentRef.putString(img, "data_url");
-        imgUrl = await response.ref.getDownloadURL();
-      } catch (error) {
-        imgUrl = img;
-        console.log(error);
-      }
-    }
-    return imgUrl;
-  };
-
   const onSubmit = async (event) => {
     event.preventDefault();
     alert("이벤트가 등록 됩니다! 잠시만 기다려주세요!");
@@ -114,38 +97,11 @@ function Info() {
     });
   };
 
-  const onFileChange = (event) => {
-    console.log(event);
-    const {
-      target: { files, name },
-    } = event;
-    try {
-      const theFile = files[0];
-      const reader = new FileReader();
-      reader.onloadend = async (finishedEvent) => {
-        const {
-          currentTarget: { result },
-        } = finishedEvent;
-
-        //const Url =
-        setRtmData({
-          ...rtmData,
-          [name]: await imgToUrl(result),
-        });
-      };
-      reader.readAsDataURL(theFile);
-      console.log(theFile);
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
   const onDeleteClick = async (event) => {
     event.preventDefault();
 
     const contextObj = {
       ...rtmData,
-      status: false,
       createdAt: Date.now(),
       createrId: userObj.uid,
     };
@@ -156,12 +112,6 @@ function Info() {
     history.push("/login");
   };
 
-  const onRejectSubmit = (event) => {
-    event.preventDefault();
-    console.log(dataStatus);
-    console.log(rtmData);
-    alert("메인이미지와 메뉴이미지를 넣어주세요!");
-  };
   //const onClearAttachmentClick = () => setRtmData({...rtmData, imgUrl:''})
 
   return (
@@ -177,14 +127,7 @@ function Info() {
           </button>
         )}
       </div>
-      <RtmInputForm
-        onSubmit={
-          rtmData.imgUrl === defaultRtmData.imgUrl ||
-          rtmData.menuUrl === defaultRtmData.menuUrl
-            ? onRejectSubmit
-            : onSubmit
-        }
-      >
+      <RtmInputForm onSubmit={onSubmit}>
         <input
           name="realTime"
           value={rtmData.realTime}
@@ -224,36 +167,6 @@ function Info() {
             {rtmData.endAm ? "pm" : "am"}
           </button>
         </div>
-        <button type="button">
-          <label for="imgUrl">
-            {rtmData.imgUrl === defaultRtmData.imgUrl
-              ? "메인이미지"
-              : "업로드 완료"}
-          </label>
-        </button>
-        <button type="button">
-          <label for="menuUrl">
-            {rtmData.menuUrl === defaultRtmData.menuUrl
-              ? "메뉴이미지"
-              : "업로드 완료"}
-          </label>
-        </button>
-        <input
-          style={{ display: "none" }}
-          id="imgUrl"
-          name="imgUrl"
-          type="file"
-          accept="image/*"
-          onChange={onFileChange}
-        ></input>
-        <input
-          style={{ display: "none" }}
-          id="menuUrl"
-          name="menuUrl"
-          type="file"
-          accept="image/*"
-          onChange={onFileChange}
-        ></input>
         <button className="rtmOn" type="submit">
           {dataStatus.status ? "이벤트 수정" : "실시간 이벤트 ON"}
         </button>
