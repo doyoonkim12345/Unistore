@@ -147,8 +147,8 @@ export default function StoreContext({
         </a>
         <a
           href={`https://map.kakao.com/link/map/${storeData.name},${
-            xy[1] ? xy[1] : storeData.addressXY && storeData.addressXY[1]
-          },${xy[0] ? xy[0] : storeData.addressXY && storeData.addressXY[0]}`}
+            xy ? xy[1] : storeData.addressXY && storeData.addressXY[1]
+          },${xy ? xy[0] : storeData.addressXY && storeData.addressXY[0]}`}
         >
           <FaMapMarkerAlt size={16} />
         </a>
