@@ -4,9 +4,10 @@ import { dbService, storageService } from "../fBase";
 import { logInfo } from "../App";
 import LogOut from "../routes/Profile";
 import { useHistory } from "react-router-dom";
-import { InputForm } from "./storeStyle";
+import { InputForm, Preview } from "./storeStyle";
 import { CgClose } from "react-icons/cg";
 import { v4 as uuidv4 } from "uuid";
+import StoreContext from "./StoreContext";
 
 const defaultRtmData = {
   realTime: "맥주1+1",
@@ -197,6 +198,17 @@ export default function StoreDataInput({
 
   return (
     <>
+      <Preview>
+        <h2>가게 정보를 알려주세요</h2>
+        <h4>사용자들에게 표시되는 정보입니다</h4>
+        {!discountOff && (
+          <div className="preview">
+            <h3>미리보기</h3>
+            <h4>아래와 같이 보여집니다</h4>
+            <StoreContext storeData={downloadData} isSet={true} />
+          </div>
+        )}
+      </Preview>
       <InputForm
         onSubmit={
           downloadData.imgUrl === defaultRtmData.imgUrl ||
@@ -205,8 +217,6 @@ export default function StoreDataInput({
             : onSubmit
         }
       >
-        <h2>가게 정보를 알려주세요</h2>
-        <h4>사용자들에게 표시되는 정보입니다</h4>
         <input
           name="storeKind"
           value={downloadData.storeKind}

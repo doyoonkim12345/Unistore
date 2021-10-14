@@ -151,7 +151,7 @@ export default function StoreContext({
         >
           <FaMapMarkerAlt size={16} />
         </a>
-        <button onClick={onMenuClick}>
+        <button onClick={onMenuClick} type="button">
           <MdRestaurantMenu size={18} />
         </button>
       </ButtonContainer>
