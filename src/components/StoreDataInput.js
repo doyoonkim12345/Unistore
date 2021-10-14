@@ -35,6 +35,7 @@ export default function StoreDataInput({
   const [isPoped, setIsPoped] = useState(false);
 
   const [downloadData, setDownloadData] = useState({});
+  const [addressXY, setAddressXY] = useState([]);
 
   useEffect(
     () => {
@@ -46,6 +47,8 @@ export default function StoreDataInput({
             .doc(userObj.uid)
             .get();
           setDownloadData(data.data());
+          getXY(data.data().isAddress);
+          console.log(data.data().isAddress);
         }, 0);
       }
     },
@@ -73,12 +76,12 @@ export default function StoreDataInput({
     // 나중에 x값과 y값을 받으려고 했으나 발생하는 매우 작은 시간 차이 때문에 업로드가 되고 후에 좌표값을 가져오는 현상을 찾게 되었다.
     // 이점 때문에 주소 검색한 후와 처음 주소를 가져온 경우에 좌표를 가져올 수 있도록 설정 했다.
     // 나중에 deps를 설정해서 하는 다른 방법이 있을 거 같으나 일단 빠른 개발을 위해 진행하고 코드리뷰 때 정정하도록 하겠다/.
-
+    getXY(fullAddress);
     setDownloadData({
       ...downloadData,
       isAddress: fullAddress,
     });
-    console.log(downloadData.imgUrl);
+
     setIsPoped(false);
   };
 
@@ -98,25 +101,25 @@ export default function StoreDataInput({
       if (status === kakao.maps.services.Status.OK) {
         const xy = [result[0].x, result[0].y];
         console.log(downloadData);
-        setDownloadData({
-          ...downloadData,
-          addressXY: xy,
-        });
+        setAddressXY(xy);
+        console.log(xy);
+        console.log(addressXY);
       }
     });
   };
 
   const onSubmit = async (event) => {
+    console.log(addressXY);
     if (!downloadData.ok) {
       alert(
         "아직 승인되지 않았습니다. 승인 후 정보가 사용자에게 표시됩니다. 승인완료 후 문자로 알림이 갑니다."
       );
     }
     event.preventDefault();
-    getXY(downloadData.isAddress);
     if (downloadData.isAddress) {
       const contextObj = {
         ...downloadData,
+        addressXY,
         id: userObj.uid,
         createdAt: Date.now(),
         discount: discountOff ? "" : downloadData.discount,
@@ -205,7 +208,12 @@ export default function StoreDataInput({
           <div className="preview">
             <h3>미리보기</h3>
             <h4>아래와 같이 보여집니다</h4>
-            <StoreContext storeData={downloadData} isSet={true} />
+            <StoreContext
+              storeData={downloadData}
+              xy={addressXY}
+              rtmData={{}}
+              isSet={true}
+            />
           </div>
         )}
       </Preview>
