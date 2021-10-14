@@ -46,7 +46,6 @@ function Info() {
         .collection("rtmstoredata")
         .doc(userObj.uid)
         .get();
-      console.log(data2.data());
       setDataStatus(data2.data() ? data2.data() : "");
       data1.data()
         ? setStoreData(data1.data())
@@ -90,7 +89,6 @@ function Info() {
 
   const onToggleChange = (e) => {
     const { name } = e.target;
-    console.log(name);
     setRtmData({
       ...rtmData,
       [name]: !rtmData[name],

@@ -32,14 +32,9 @@ export default function StoreList() {
             return tempObject;
           });
           Promise.all(contextArray).then((data) => {
-            console.log(data);
             setStoreData(data);
           });
-
-          console.log(store);
-        } catch (e) {
-          console.log(e);
-        }
+        } catch (e) {}
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

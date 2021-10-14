@@ -48,7 +48,6 @@ export default function StoreDataInput({
             .get();
           setDownloadData(data.data());
           getXY(data.data().isAddress);
-          console.log(data.data().isAddress);
         }, 0);
       }
     },
@@ -71,7 +70,6 @@ export default function StoreDataInput({
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
-    console.log(fullAddress);
 
     // 나중에 x값과 y값을 받으려고 했으나 발생하는 매우 작은 시간 차이 때문에 업로드가 되고 후에 좌표값을 가져오는 현상을 찾게 되었다.
     // 이점 때문에 주소 검색한 후와 처음 주소를 가져온 경우에 좌표를 가져올 수 있도록 설정 했다.
@@ -100,16 +98,12 @@ export default function StoreDataInput({
       // 정상적으로 검색이 완료됐으면
       if (status === kakao.maps.services.Status.OK) {
         const xy = [result[0].x, result[0].y];
-        console.log(downloadData);
         setAddressXY(xy);
-        console.log(xy);
-        console.log(addressXY);
       }
     });
   };
 
   const onSubmit = async (event) => {
-    console.log(addressXY);
     if (!downloadData.ok) {
       alert(
         "아직 승인되지 않았습니다. 승인 후 정보가 사용자에게 표시됩니다. 승인완료 후 문자로 알림이 갑니다."
@@ -124,7 +118,6 @@ export default function StoreDataInput({
         createdAt: Date.now(),
         discount: discountOff ? "" : downloadData.discount,
       };
-      console.log(contextObj);
       if (!(downloadData === contextObj)) {
         await dbService
           .collection("storedata")
@@ -138,7 +131,6 @@ export default function StoreDataInput({
         history.push("/login");
       }
     } else {
-      console.log(downloadData);
       alert("주소를 입력해주세요");
     }
   };
@@ -152,7 +144,6 @@ export default function StoreDataInput({
   };
 
   const onFileChange = (event) => {
-    console.log(event);
     const {
       target: { files, name },
     } = event;
@@ -171,10 +162,7 @@ export default function StoreDataInput({
         });
       };
       reader.readAsDataURL(theFile);
-      console.log(theFile);
-    } catch (e) {
-      console.log(e.message);
-    }
+    } catch (e) {}
   };
 
   const imgToUrl = async (img) => {
@@ -188,7 +176,6 @@ export default function StoreDataInput({
         imgUrl = await response.ref.getDownloadURL();
       } catch (error) {
         imgUrl = img;
-        console.log(error);
       }
     }
     return imgUrl;

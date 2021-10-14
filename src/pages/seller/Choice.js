@@ -42,15 +42,11 @@ function Choice() {
         setRtmStoreData(data1);
 
         if (!data.exists) {
-          console.log("check");
           setCheckFirstTime(true);
         }
         setInit(false);
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
     }, 0);
-    //console.log(init, checkFirstTime)
   }, [userObj]);
 
   const initStyle = {

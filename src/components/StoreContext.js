@@ -84,8 +84,6 @@ export default function StoreContext({
             )
           ).padStart(2, "0");
           setSecond(countSecond);
-
-          console.log("yes");
         } else if (
           checkedDate.beforestartDate < checkedDate.nowDate &&
           checkedDate.nowDate <= checkedDate.startDate &&
@@ -99,9 +97,7 @@ export default function StoreContext({
           }시부터`;
 
           setIsBefore(startAt);
-          console.log(isBefore);
         } else {
-          console.log("nope");
           setIsOn(false);
           setIsBefore("");
           clearInterval(repeat);
