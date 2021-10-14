@@ -5,6 +5,8 @@ import { dbService } from "../../fBase";
 import { logInfo } from "../../App";
 import { LinkList } from "../../components/choiceStyle";
 
+export const dataObj = React.createContext();
+
 function Choice() {
   const [init, setInit] = useState(true);
   const { userObj } = useContext(logInfo);
@@ -19,6 +21,9 @@ function Choice() {
   //문제가 userobj.uid가 즉각 반영 되지 않고 전에 있는 자료가 있거나 수정중에 실행되서 null이 되는 것이었다.
   // useEffect에 deps에 userobj를 넣어서 userobj가 변경되면 호출 할 수 있게했다.
 
+  const [storeData, setStoreData] = useState({});
+  const [rtmStoreData, setRtmStoreData] = useState({});
+
   useEffect(() => {
     setTimeout(async () => {
       try {
@@ -27,8 +32,15 @@ function Choice() {
           .collection("storedata")
           .doc(userObj.uid)
           .get();
-        //console.log(userObj.uid)
-        console.log(data);
+
+        const data1 = await dbService
+          .collection("rtmstoredata")
+          .doc(userObj.uid)
+          .get();
+
+        setStoreData(data);
+        setRtmStoreData(data1);
+
         if (!data.exists) {
           console.log("check");
           setCheckFirstTime(true);
@@ -66,18 +78,20 @@ function Choice() {
           />
         </>
       ) : (
-        <LinkList>
-          <p>
-            <Link className="default-link" to="/info">
-              가게정보
-            </Link>
-          </p>
-          <p>
-            <Link className="default-link" to="/profile">
-              실시간 할인정보
-            </Link>
-          </p>
-        </LinkList>
+        <dataObj.Provider value={{ storeData, rtmStoreData }}>
+          <LinkList>
+            <p>
+              <Link className="default-link" to="/info">
+                가게정보
+              </Link>
+            </p>
+            <p>
+              <Link className="default-link" to="/profile">
+                실시간 할인정보
+              </Link>
+            </p>
+          </LinkList>
+        </dataObj.Provider>
       )}
     </>
   );
