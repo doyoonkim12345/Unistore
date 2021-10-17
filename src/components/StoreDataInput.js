@@ -9,19 +9,6 @@ import { CgClose } from "react-icons/cg";
 import { v4 as uuidv4 } from "uuid";
 import StoreContext from "./StoreContext";
 
-const defaultRtmData = {
-  realTime: "맥주1+1",
-  startTime: 9,
-  endTime: 10,
-  imgUrl:
-    "https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400_7.png",
-  menuUrl:
-    "https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400_7.png",
-  startAm: true, // true= am false= pm
-  endAm: true,
-  status: true, // true-> on false -> off
-};
-
 export default function StoreDataInput({
   setCheckFirstTime,
   discountOff = false,
@@ -104,12 +91,18 @@ export default function StoreDataInput({
   };
 
   const onSubmit = async (event) => {
+    event.preventDefault();
+    if (!downloadData.menuUrl || !downloadData.imgUrl) {
+      alert(
+        "이미지가 업로드 되지 않았습니다. 업로드 완료 후 다시 시도해 주세요!"
+      );
+      return;
+    }
     if (!downloadData.ok) {
       alert(
         "아직 승인되지 않았습니다. 승인 후 정보가 사용자에게 표시됩니다. 승인완료 후 문자로 알림이 갑니다."
       );
     }
-    event.preventDefault();
     if (downloadData.isAddress) {
       const contextObj = {
         ...downloadData,
@@ -181,11 +174,6 @@ export default function StoreDataInput({
     return imgUrl;
   };
 
-  const onRejectSubmit = (event) => {
-    event.preventDefault();
-    alert("메인이미지와 메뉴이미지를 넣어주세요!");
-  };
-
   return (
     <>
       <Preview>
@@ -204,14 +192,7 @@ export default function StoreDataInput({
           </div>
         )}
       </Preview>
-      <InputForm
-        onSubmit={
-          downloadData.imgUrl === defaultRtmData.imgUrl ||
-          downloadData.menuUrl === defaultRtmData.menuUrl
-            ? onRejectSubmit
-            : onSubmit
-        }
-      >
+      <InputForm onSubmit={onSubmit}>
         <input
           name="storeKind"
           value={downloadData.storeKind}
