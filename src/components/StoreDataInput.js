@@ -23,6 +23,8 @@ export default function StoreDataInput({
 
   const [downloadData, setDownloadData] = useState({});
   const [addressXY, setAddressXY] = useState([]);
+  const [imgUrl, setImgUrl] = useState("");
+  const [menuUrl, setMenuUrl] = useState("");
 
   useEffect(
     () => {
@@ -92,7 +94,7 @@ export default function StoreDataInput({
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (!downloadData.menuUrl || !downloadData.imgUrl) {
+    if (!imgUrl || !menuUrl) {
       alert(
         "이미지가 업로드 되지 않았습니다. 업로드 완료 후 다시 시도해 주세요!"
       );
@@ -109,6 +111,8 @@ export default function StoreDataInput({
         addressXY,
         id: userObj.uid,
         createdAt: Date.now(),
+        imgUrl,
+        menuUrl,
         discount: discountOff ? "" : downloadData.discount,
       };
       if (!(downloadData === contextObj)) {
@@ -149,10 +153,15 @@ export default function StoreDataInput({
         } = finishedEvent;
 
         //const Url =
-        setDownloadData({
+        /*setDownloadData({
           ...downloadData,
           [name]: await imgToUrl(result),
-        });
+        });*/
+        if (name === "menuUrl") {
+          setMenuUrl(await imgToUrl(result));
+        } else if (name === "imgUrl") {
+          setImgUrl(await imgToUrl(result));
+        }
       };
       reader.readAsDataURL(theFile);
     } catch (e) {}
@@ -240,14 +249,10 @@ export default function StoreDataInput({
           </button>
         )}
         <button type="button">
-          <label for="imgUrl">
-            {downloadData.imgUrl ? "업로드 완료" : "메인이미지"}
-          </label>
+          <label for="imgUrl">{imgUrl ? "업로드 완료" : "메인이미지"}</label>
         </button>
         <button type="button">
-          <label for="menuUrl">
-            {downloadData.menuUrl ? "업로드 완료" : "메뉴이미지"}
-          </label>
+          <label for="menuUrl">{menuUrl ? "업로드 완료" : "메뉴이미지"}</label>
         </button>
         <button type="submit" required>
           확인
