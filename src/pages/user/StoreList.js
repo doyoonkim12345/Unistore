@@ -67,7 +67,7 @@ export default function StoreList() {
     const checkedDate = checkDate(data);
     return (
       (!(
-        checkedDate.startDate < checkedDate.nowDate &&
+        checkedDate.beforestartDate < checkedDate.nowDate &&
         checkedDate.nowDate < checkedDate.endDate
       ) ||
         !data.status) &&
