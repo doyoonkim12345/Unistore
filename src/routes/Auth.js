@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { LoginBox, LoginInputForm } from "../components/authStyle";
+import { LoginBox, LoginInputForm } from "../components/styles/authStyle";
 import { authService, firebaseInstance } from "../fBase";
-import { TitleContainer } from "../components/style";
+import { TitleContainer } from "../components/styles/style";
+import { useTranslation } from "react-i18next";
 
 function Auth() {
+  const { t } = useTranslation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(false);
@@ -56,13 +59,13 @@ function Auth() {
     <LoginBox>
       <TitleContainer>
         <h1>FineApple</h1>
-        <h4>오직 대학생을 위한 할인 혜택</h4>
+        <h4>{t("subTitle")}</h4>
       </TitleContainer>
       <LoginInputForm onSubmit={onSubmit}>
         <input
           name="email"
           type="text"
-          placeholder="이메일"
+          placeholder={t("email")}
           required
           value={email}
           onChange={onChange}
@@ -70,17 +73,17 @@ function Auth() {
         <input
           name="password"
           type="password"
-          placeholder="비밀번호"
+          placeholder={t("pswd")}
           required
           value={password}
           onChange={onChange}
         ></input>
         <button type="submit">
-          {newAccount ? "Create Account" : "로그인"}
+          {newAccount ? "Create Account" : t("login")}
         </button>
       </LoginInputForm>
       <span onClick={toggleAccount}>
-        {newAccount ? "로그인" : "Create Account"}
+        {newAccount ? t("login") : "Create Account"}
       </span>
       {error}
       <div>

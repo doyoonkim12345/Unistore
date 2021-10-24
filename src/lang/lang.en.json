@@ -1,0 +1,43 @@
+{
+
+    "loading": "loading",
+
+    "logout": "logout",
+
+    "waitmsg":"wait for your event to be uploaded!",
+    "eventUploaded":" event upload completed!",
+    "eventEnded":"Event ended!",
+    "previewTitle":"Inform us your event!",
+    "preview":"preview",
+    "previewMsg":"shown as below",
+    "eventEndBtn":"Live event ended",
+    "discount":"details of discount",
+    "startTime":"Start time",
+    "endTime":"End time",
+    "eventEdit":"adjust your event",
+    "eventOnBtn":" turn your live event on",
+
+   "subTitle":"Discount for only students",
+    "email":"enter your email address",
+    "pswd":"enter your password",
+
+    "login":"login",
+
+    "storeInfo":"store information",
+    "rtmDcInfo":"discount information",
+
+    "imgErrorMsg":"image upload not comoleted, please try again after uploading image",
+    "notAllowedMsg":"not authorised yet. we will send you a message to confirm an authorisation.",
+    "addressInputMsg":"please enter your address",
+    "storeInfoMsg":"tell us about your store",
+    "storeInfoContext":"this information will be shown to users.",
+    "storeKind":"type of store(ex Korean cuisine, Chinese cuisine, Japanese cuisine, Beauty, Entertainment etc ..)",
+    "storeName":"name of store",
+    "storeTel":"contact number",
+    "discountInfo":"tell us about your offer to students",
+    "findAddress":"type your address",
+    "uploaded":"upload completed",
+    "mainImg":"Main image for your store",
+    "menuImg":"Menu of your store",
+    "submit":"submit"
+}

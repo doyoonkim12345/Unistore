@@ -4,16 +4,19 @@ import { dbService, storageService } from "../fBase";
 import { logInfo } from "../App";
 import LogOut from "../routes/Profile";
 import { useHistory } from "react-router-dom";
-import { InputForm, Preview } from "./storeStyle";
+import { InputForm, Preview } from "./styles/storeStyle";
 import { CgClose } from "react-icons/cg";
 import { v4 as uuidv4 } from "uuid";
 import StoreContext from "./StoreContext";
+import { useTranslation } from "react-i18next";
 
 export default function StoreDataInput({
   setCheckFirstTime,
   discountOff = false,
 }) {
   //props로 useState 함수를 가져오면 안됨 하지만 ... ㅋㄷ
+  const { t } = useTranslation();
+
   const { kakao } = window;
   const { userObj } = useContext(logInfo);
 
@@ -40,7 +43,6 @@ export default function StoreDataInput({
         }, 0);
       }
     },
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
@@ -95,15 +97,11 @@ export default function StoreDataInput({
   const onSubmit = async (event) => {
     event.preventDefault();
     if (!imgUrl || !menuUrl) {
-      alert(
-        "이미지가 업로드 되지 않았습니다. 업로드 완료 후 다시 시도해 주세요!"
-      );
+      alert(t("imgErrorMsg"));
       return;
     }
     if (!downloadData.ok) {
-      alert(
-        "아직 승인되지 않았습니다. 승인 후 정보가 사용자에게 표시됩니다. 승인완료 후 문자로 알림이 갑니다."
-      );
+      alert(t("notAllowedMsg"));
     }
     if (downloadData.isAddress) {
       const contextObj = {
@@ -128,7 +126,7 @@ export default function StoreDataInput({
         history.push("/login");
       }
     } else {
-      alert("주소를 입력해주세요");
+      alert(t("addressInputMsg"));
     }
   };
 
@@ -186,12 +184,12 @@ export default function StoreDataInput({
   return (
     <>
       <Preview>
-        <h2>가게 정보를 알려주세요</h2>
-        <h4>사용자들에게 표시되는 정보입니다</h4>
+        <h2>{t("storeInfoMsg")}</h2>
+        <h4>{t("storeInfoContext")}</h4>
         {!discountOff && (
           <div className="preview">
-            <h3>미리보기</h3>
-            <h4>아래와 같이 보여집니다</h4>
+            <h3>{t("preview")}</h3>
+            <h4>{t("previewMsg")}</h4>
             <StoreContext
               storeData={downloadData}
               xy={addressXY}
@@ -207,7 +205,7 @@ export default function StoreDataInput({
           value={downloadData.storeKind}
           onChange={onClickChange}
           type="text"
-          placeholder="가게 종류(ex 한식, 중식 ..)"
+          placeholder={t("storeKind")}
           required
         />
         <input
@@ -215,7 +213,7 @@ export default function StoreDataInput({
           value={downloadData.name}
           onChange={onClickChange}
           type="text"
-          placeholder="가게이름"
+          placeholder={t("storeName")}
           required
         />
         <input
@@ -223,7 +221,7 @@ export default function StoreDataInput({
           value={downloadData.phone}
           onChange={onClickChange}
           type="tel"
-          placeholder="가게 전화번호"
+          placeholder={t("storeTel")}
           required
         />
         {!discountOff && (
@@ -232,7 +230,7 @@ export default function StoreDataInput({
             value={downloadData.discount}
             onChange={onClickChange}
             type="text"
-            placeholder="학생대상 할인 정보를 입력해주세요!"
+            placeholder={t("discountInfo")}
             required
           />
         )}
@@ -245,17 +243,17 @@ export default function StoreDataInput({
           </div>
         ) : (
           <button onClick={onClick}>
-            {downloadData.isAddress ? downloadData.isAddress : "가게주소찾기"}
+            {downloadData.isAddress ? downloadData.isAddress : t("findAddress")}
           </button>
         )}
         <button type="button">
-          <label for="imgUrl">{imgUrl ? "업로드 완료" : "메인이미지"}</label>
+          <label for="imgUrl">{imgUrl ? t("uploaded") : t("mainImg")}</label>
         </button>
         <button type="button">
-          <label for="menuUrl">{menuUrl ? "업로드 완료" : "메뉴이미지"}</label>
+          <label for="menuUrl">{menuUrl ? t("uploaded") : t("menuImg")}</label>
         </button>
         <button type="submit" required>
-          확인
+          {t("submit")}
         </button>
         <input
           style={{ display: "none" }}

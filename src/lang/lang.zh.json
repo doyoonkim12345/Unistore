@@ -1,0 +1,43 @@
+{
+
+    "loading": "加载中",
+    
+    
+    " logout " : "注销 ",
+    
+    "waitmsg": "活动将被登记！ 请稍等一下！",
+    "eventUploaded" : "活动已上传！ ",
+    "event Ended" : "活动已结束",
+    "preview Title": "请告诉我实时活动！",
+    "preview": "预览",
+    "previewMsg" : " 显示如下 " ,
+    "event EndBtn" : " 实时活动结束 " ,
+    "discount":"折扣内容",
+    "Start Time" : " 开始时间 ", 
+    "end time": "结束的时间",
+    "event Edit" : " 活动修改 ", 
+    "event OnBtn": "实时活动ON",
+    
+    "subTitle": "只为大学生提供的折扣优惠",
+    "email" : " 电子邮件 ", 
+    "pswd": "密码",
+    "login" : " 登录 ", 
+    
+    "storeInfo": "店铺信息",
+    "rtmDcInfo" :"实时折扣信息",
+    
+    "imgErrorMsg" : " 图像未上传  上传完成后请再次尝试！ ",
+    "notAllowedMsg" : "尚未批准 批准后将信息显示给用户 批准完成后，用短信通知",
+    "addressInputMsg": "请输入地址",
+    "store InfoMsg": "请告诉我店铺信息",
+    "storeInfoContext" : " 显示给用户的信息  ",
+    "store Kind":"店铺种类(ex韩食, 中餐..)",
+    "storeName" : " 店铺名 ", 
+    "store Tel": "店铺电话号码",
+    "discountInfo": "请输入以学生为对象的折扣信息！",
+    "findAddress":"查找店铺地址",
+    "uploaded" : " 上传完成 ",
+    "mainImg" : " 主映像 ",
+    "menuImg" : " 菜单映像 ",
+    "Submit" : "确认"
+    }

@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import StoreDataInput from "../../components/StoreDataInput";
 import { dbService } from "../../fBase";
 import { logInfo } from "../../App";
-import { LinkList } from "../../components/choiceStyle";
+import { LinkList } from "../../components/styles/choiceStyle";
+import { useTranslation } from "react-i18next";
 
 export const dataObj = React.createContext();
 
 function Choice() {
+  const { t } = useTranslation();
+
   const [init, setInit] = useState(true);
   const { userObj } = useContext(logInfo);
   const [checkFirstTime, setCheckFirstTime] = useState(false);
@@ -64,7 +67,7 @@ function Choice() {
         <div style={initStyle}>
           <h1>FineApple</h1>
           <br />
-          <h3>오직 대학생을 위한 할인 혜택</h3>
+          <h3>{t("subTitle")}</h3>
         </div>
       ) : checkFirstTime ? (
         <>
@@ -78,12 +81,12 @@ function Choice() {
           <LinkList>
             <p>
               <Link className="default-link" to="/info">
-                가게정보
+                {t("storeInfo")}
               </Link>
             </p>
             <p>
               <Link className="default-link" to="/profile">
-                실시간 할인정보
+                {t("rtmDcInfo")}
               </Link>
             </p>
           </LinkList>

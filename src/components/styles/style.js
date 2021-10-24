@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
 export const TitleContainer = styled.div`
-  text-align: center;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
 `;
 
 export const ListContainer = styled.div`

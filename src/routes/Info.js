@@ -1,10 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import { dbService } from "../fBase";
+import { useTranslation } from "react-i18next";
 
 import { logInfo } from "../App";
 import { useHistory } from "react-router-dom";
 import StoreContext from "../components/StoreContext";
-import { RtmEventContainer, RtmInputForm } from "../components/infoStyle";
+import {
+  RtmEventContainer,
+  RtmInputForm,
+} from "../components/styles/infoStyle";
 
 const defaultStoreData = {
   name: "란탕수육 이대점",
@@ -28,6 +32,8 @@ const defaultRtmData = {
 };
 
 function Info() {
+  const { t } = useTranslation();
+
   const { userObj } = useContext(logInfo);
 
   const [storeData, setStoreData] = useState({});
@@ -58,7 +64,7 @@ function Info() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    alert("이벤트가 등록 됩니다! 잠시만 기다려주세요!");
+    alert(t("waitmsg"));
     //const imgUrl = await imgToUrl(rtmData.imgUrl)
     //const menuUrl = await imgToUrl(rtmData.menuUrl)
 
@@ -72,7 +78,7 @@ function Info() {
 
     await dbService.collection("rtmstoredata").doc(userObj.uid).set(contextObj);
 
-    alert("이벤트가 등록 되었습니다!");
+    alert(t("eventUploaded"));
 
     setRtmData({});
     setStoreData({});
@@ -100,13 +106,14 @@ function Info() {
 
     const contextObj = {
       ...rtmData,
+      status: false,
       createdAt: Date.now(),
       createrId: userObj.uid,
     };
 
     await dbService.collection("rtmstoredata").doc(userObj.uid).set(contextObj);
 
-    alert("실시간 이벤트가 종료되었습니다!");
+    alert(t("eventEnded"));
     history.push("/login");
   };
 
@@ -114,14 +121,14 @@ function Info() {
 
   return (
     <RtmEventContainer>
-      <h2>실시간 이벤트를 알려주세요!</h2>
+      <h2>{t("previewTitle")}</h2>
       <div className="preview">
-        <h3>미리보기</h3>
-        <h4>아래와 같이 보여집니다</h4>
+        <h3>{t("preview")}</h3>
+        <h4>{t("previewMsg")}</h4>
         <StoreContext rtmData={rtmData} storeData={storeData} isSet={true} />
         {dataStatus.status && (
           <button className="rtmOff" onClick={onDeleteClick}>
-            실시간 이벤트 종료
+            {t("eventEndBtn")}
           </button>
         )}
       </div>
@@ -131,7 +138,7 @@ function Info() {
           value={rtmData.realTime}
           onChange={onChange}
           type="text"
-          placeholder="할인 내용"
+          placeholder={t("discount")}
           maxLength={120}
           required
         />
@@ -143,7 +150,7 @@ function Info() {
             type="number"
             min="0"
             max="12"
-            placeholder="시작 시간"
+            placeholder={t("startTime")}
             required
           />
           <button name="startAm" type="button" onClick={onToggleChange}>
@@ -158,7 +165,7 @@ function Info() {
             type="number"
             min="0"
             max="12"
-            placeholder="끝나는 시간"
+            placeholder={t("endTime")}
             required
           />
           <button name="endAm" type="button" onClick={onToggleChange}>
@@ -166,7 +173,7 @@ function Info() {
           </button>
         </div>
         <button className="rtmOn" type="submit">
-          {dataStatus.status ? "이벤트 수정" : "실시간 이벤트 ON"}
+          {dataStatus.status ? t("evnetEdit") : t("eventOnBtn")}
         </button>
       </RtmInputForm>
     </RtmEventContainer>

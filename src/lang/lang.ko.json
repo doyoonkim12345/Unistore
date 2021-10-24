@@ -1,0 +1,43 @@
+{
+
+    "loading": "로딩중",
+
+
+    "logout":"로그아웃",
+
+    "waitmsg":"이벤트가 등록 됩니다! 잠시만 기다려주세요!",
+    "eventUploaded":"이벤트가 업로드 되었습니다!",
+    "eventEnded":"이벤트가 종료 되었습니다!",
+    "previewTitle":"실시간 이벤트를 알려주세요!",
+    "preview":"미리보기",
+    "previewMsg":"아래와 같이 보여집니다",
+    "eventEndBtn":"실시간 이벤트 종료",
+    "discount":"할인 내용",
+    "startTime":"시작 시간",
+    "endTime":"끝나는 시간",
+    "eventEdit":"이벤트 수정",
+    "eventOnBtn":"실시간 이벤트 ON",
+
+    "subTitle":"오직 대학생을 위한 할인 혜택",
+    "email":"이메일",
+    "pswd":"비밀번호",
+    "login":"로그인",
+
+    "storeInfo":"가게정보",
+    "rtmDcInfo":"실시간 할인 정보",
+
+    "imgErrorMsg":"이미지가 업로드 되지 않았습니다. 업로드 완료 후 다시 시도해 주세요!",
+    "notAllowedMsg":"아직 승인되지 않았습니다. 승인 후 정보가 사용자에게 표시됩니다. 승인완료 후 문자로 알림이 갑니다.",
+    "addressInputMsg":"주소를 입력해주세요",
+    "storeInfoMsg":"가게 정보를 알려주세요",
+    "storeInfoContext":"사용자들에게 표시되는 정보입니다",
+    "storeKind":"가게 종류(ex 한식, 중식 ..)",
+    "storeName":"가게이름",
+    "storeTel":"가게 전화번호",
+    "discountInfo":"학생대상 할인 정보를 입력해주세요!",
+    "findAddress":"가게주소찾기",
+    "uploaded":"업로드 완료",
+    "mainImg":"메인 이미지",
+    "menuImg":"메뉴 이미지",
+    "submit":"확인"
+}

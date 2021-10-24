@@ -7,7 +7,7 @@ import {
   MenuViewer,
   TimeBox,
   TitleBox,
-} from "./newStyle";
+} from "./styles/newStyle";
 import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { MdRestaurantMenu } from "react-icons/md";
 import { CgClose } from "react-icons/cg";
