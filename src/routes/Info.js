@@ -9,6 +9,7 @@ import {
   RtmEventContainer,
   RtmInputForm,
 } from "../components/styles/infoStyle";
+import LogOut from "./Profile";
 
 const defaultStoreData = {
   name: "란탕수육 이대점",
@@ -175,6 +176,7 @@ function Info() {
         <button className="rtmOn" type="submit">
           {dataStatus.status ? t("evnetEdit") : t("eventOnBtn")}
         </button>
+        <LogOut />
       </RtmInputForm>
     </RtmEventContainer>
   );

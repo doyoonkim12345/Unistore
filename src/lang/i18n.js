@@ -17,13 +17,16 @@ const resource = {
   },
 };
 
+export const userLanguage =
+  window.navigator.language || window.navigator.userLanguage;
+
 i18n.use(initReactI18next).init({
   resources: resource,
-  lng: "ko-KR",
+  lng: localStorage.getItem("lang") || userLanguage || "ko-KR",
   fallbackLng: {
     "en-US": ["en-US"],
-    default: ["ko-KR"],
-    "zh-CN": ["zh=CN"],
+    "ko-KR": ["ko-KR"],
+    "zh-CN": ["zh-CN"],
   },
   debug: true,
   defaultNS: "translation",

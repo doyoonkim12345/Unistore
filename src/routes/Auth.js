@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LoginBox, LoginInputForm } from "../components/styles/authStyle";
-import { authService, firebaseInstance } from "../fBase";
-import { TitleContainer } from "../components/styles/style";
+import { authService } from "../fBase";
+
 import { useTranslation } from "react-i18next";
 
 function Auth() {
@@ -9,6 +9,7 @@ function Auth() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [repassword, setRepassword] = useState("");
   const [newAccount, setNewAccount] = useState(false);
   const [error, setError] = useState("");
 
@@ -17,6 +18,10 @@ function Auth() {
     let data;
     try {
       if (newAccount) {
+        if (!(password === repassword)) {
+          alert("비밀번호가 일치하지 않습니다!");
+          return;
+        }
         data = await authService.createUserWithEmailAndPassword(
           email,
           password
@@ -38,10 +43,15 @@ function Auth() {
       setEmail(value);
     } else if (name === "password") {
       setPassword(value);
+    } else if (name === "repassword") {
+      setRepassword(value);
     }
   };
 
-  const onSocialClick = async (event) => {
+  const onLostClick = (event) => {
+    alert("kdyem0628@gmail.com로 문의주세요!");
+  };
+  /*const onSocialClick = async (event) => {
     const {
       target: { name },
     } = event;
@@ -52,15 +62,11 @@ function Auth() {
 
     // eslint-disable-next-line no-unused-vars
     const data = await authService.signInWithPopup(provider);
-  };
+  };*/
 
   const toggleAccount = () => setNewAccount((prev) => !prev);
   return (
     <LoginBox>
-      <TitleContainer>
-        <h1>FineApple</h1>
-        <h4>{t("subTitle")}</h4>
-      </TitleContainer>
       <LoginInputForm onSubmit={onSubmit}>
         <input
           name="email"
@@ -78,19 +84,24 @@ function Auth() {
           value={password}
           onChange={onChange}
         ></input>
-        <button type="submit">
-          {newAccount ? "Create Account" : t("login")}
-        </button>
+        {newAccount && (
+          <input
+            name="repassword"
+            type="password"
+            placeholder={t("repswd")}
+            required
+            value={repassword}
+            onChange={onChange}
+          ></input>
+        )}
+        <button type="submit">{newAccount ? t("signup") : t("login")}</button>
       </LoginInputForm>
       <span onClick={toggleAccount}>
-        {newAccount ? t("login") : "Create Account"}
+        {newAccount ? t("login") : t("signup")}
       </span>
+      <br />
+      {!newAccount && <span onClick={onLostClick}>아이디 비밀번호 찾기</span>}
       {error}
-      <div>
-        <button name="google" onClick={onSocialClick}>
-          구글로 로그인 하기
-        </button>
-      </div>
     </LoginBox>
   );
 }

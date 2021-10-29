@@ -1,12 +1,9 @@
 import React from "react";
 import { useMemo } from "react";
 import Select from "react-select";
-import i18n from "../lang/i18n";
-/*import { useContext } from "react";
-import { langData } from "../App";*/
+import i18n, { userLanguage } from "../lang/i18n";
 
 export default function LangChanger() {
-  //const { lang } = useContext(langData);
   const options = useMemo(
     () => [
       { value: "ko-KR", label: "한국어" },
@@ -17,12 +14,16 @@ export default function LangChanger() {
   );
 
   const onChange = (event) => {
-    console.log(event.value);
+    localStorage.setItem("lang", event.value);
     i18n.changeLanguage(event.value);
-    //return <langData.Provider value={}></langData.Provider>;
+    console.log(userLanguage);
   };
 
   return (
-    <Select onChange={onChange} options={options} defaultValue={options[0]} />
+    <Select
+      onChange={onChange}
+      options={options}
+      defaultValue={options.find((x) => x.value === i18n.language)}
+    />
   );
 }

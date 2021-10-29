@@ -22,6 +22,7 @@
     "email":"이메일",
     "pswd":"비밀번호",
     "login":"로그인",
+    "signup":"회원가입",
 
     "storeInfo":"가게정보",
     "rtmDcInfo":"실시간 할인 정보",

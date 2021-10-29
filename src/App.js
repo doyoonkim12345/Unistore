@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import AdminRouter from "../src/components/AdminRouter";
 import { authService } from "./fBase";
 import { useTranslation } from "react-i18next";
+import Header from "./components/Header";
 
 export const logInfo = React.createContext();
-export const langData = React.createContext();
 
 export default function App() {
   const { t } = useTranslation();
@@ -37,9 +37,8 @@ export default function App() {
     <>
       {init ? (
         <logInfo.Provider value={{ isLoggedin, userObj }}>
-          <langData.Provider value={"ko-KR"}>
-            <AdminRouter />
-          </langData.Provider>
+          <Header />
+          <AdminRouter />
         </logInfo.Provider>
       ) : (
         <h1 style={initStyle}>{t("loading")}</h1>

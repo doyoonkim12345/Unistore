@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ListContainer, TitleContainer } from "../../components/styles/style";
+import { ListContainer } from "../../components/styles/style";
 import StoreContext from "../../components/StoreContext";
 import { dbService } from "../../fBase";
 import { checkDate } from "../../components/modules";
 
-import { useTranslation } from "react-i18next";
-
-import LangChanger from "../../components/LangChanger";
-
-//export const MyContext = createContext(stores)
-
 export default function StoreList() {
   //const allStores = useContext(MyContext)
   //전역변수를 만드는 것
-
-  const { t } = useTranslation();
 
   const [store, setStoreData] = useState([]);
 
@@ -88,13 +80,6 @@ export default function StoreList() {
 
   return (
     <>
-      <TitleContainer>
-        <div>
-          <h1>FineApple</h1>
-          <h4>{t("subTitle")}</h4>
-        </div>
-        <LangChanger />
-      </TitleContainer>
       <ListContainer>{menulist}</ListContainer>
     </>
   );

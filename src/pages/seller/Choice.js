@@ -24,11 +24,11 @@ function Choice() {
   //문제가 userobj.uid가 즉각 반영 되지 않고 전에 있는 자료가 있거나 수정중에 실행되서 null이 되는 것이었다.
   // useEffect에 deps에 userobj를 넣어서 userobj가 변경되면 호출 할 수 있게했다.
 
-  const [storeData, setStoreData] = useState({});
-  const [rtmStoreData, setRtmStoreData] = useState({});
+  /*const [storeData, setStoreData] = useState({});
+  const [rtmStoreData, setRtmStoreData] = useState({});*/
 
   useEffect(() => {
-    setTimeout(async () => {
+    (async () => {
       try {
         //firestore에 유저의 uid로 내용이 있는 지확인
         const data = await dbService
@@ -36,20 +36,20 @@ function Choice() {
           .doc(userObj.uid)
           .get();
 
-        const data1 = await dbService
+        /*const data1 = await dbService
           .collection("rtmstoredata")
           .doc(userObj.uid)
-          .get();
+          .get();*/
 
-        setStoreData(data);
-        setRtmStoreData(data1);
+        //setStoreData(data);
+        //setRtmStoreData(data1);
 
         if (!data.exists) {
           setCheckFirstTime(true);
         }
         setInit(false);
       } catch (e) {}
-    }, 0);
+    })();
   }, [userObj]);
 
   const initStyle = {
@@ -77,20 +77,16 @@ function Choice() {
           />
         </>
       ) : (
-        <dataObj.Provider value={{ storeData, rtmStoreData }}>
+        <>
+          <StoreDataInput />
           <LinkList>
-            <p>
-              <Link className="default-link" to="/info">
-                {t("storeInfo")}
-              </Link>
-            </p>
             <p>
               <Link className="default-link" to="/profile">
                 {t("rtmDcInfo")}
               </Link>
             </p>
           </LinkList>
-        </dataObj.Provider>
+        </>
       )}
     </>
   );

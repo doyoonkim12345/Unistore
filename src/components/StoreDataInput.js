@@ -32,15 +32,19 @@ export default function StoreDataInput({
   useEffect(
     () => {
       if (!discountOff) {
-        setTimeout(async () => {
+        (async () => {
           //firestore에 유저의 uid로 내용이 있는 지확인
           const data = await dbService
             .collection("storedata")
             .doc(userObj.uid)
             .get();
-          setDownloadData(data.data());
+          if (!data.data()) {
+            setDownloadData({});
+          } else {
+            setDownloadData(data.data());
+          }
           getXY(data.data().isAddress);
-        }, 0);
+        })();
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,7 +115,6 @@ export default function StoreDataInput({
         createdAt: Date.now(),
         imgUrl,
         menuUrl,
-        discount: discountOff ? "" : downloadData.discount,
       };
       if (!(downloadData === contextObj)) {
         await dbService
@@ -121,6 +124,7 @@ export default function StoreDataInput({
       }
 
       if (discountOff) {
+        alert("회원가입이 완료 되었습니다!");
         setCheckFirstTime(false);
       } else {
         history.push("/login");
@@ -224,16 +228,16 @@ export default function StoreDataInput({
           placeholder={t("storeTel")}
           required
         />
-        {!discountOff && (
-          <input
-            name="discount"
-            value={downloadData.discount}
-            onChange={onClickChange}
-            type="text"
-            placeholder={t("discountInfo")}
-            required
-          />
-        )}
+
+        <input
+          name="discount"
+          value={downloadData.discount}
+          onChange={onClickChange}
+          type="text"
+          placeholder={t("discountInfo")}
+          required
+        />
+
         {isPoped ? (
           <div className="postcode">
             <button onClick={onCloseClick}>
