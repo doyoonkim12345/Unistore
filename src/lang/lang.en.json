@@ -23,6 +23,8 @@
 
     "login":"login",
     "signin":"Sign Up",
+    "signupCompleted":"signed up",
+    "uploadCompleted":"Upload completed",
 
     "storeInfo":"store information",
     "rtmDcInfo":"discount information",

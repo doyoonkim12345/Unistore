@@ -127,11 +127,12 @@ export default function StoreDataInput({
       }
 
       if (discountOff) {
-        alert("회원가입이 완료 되었습니다!");
+        alert(t("signupCompleted"));
         setCheckFirstTime(false);
       } else {
         history.push("/login");
       }
+      alert(t("uploadCompleted"));
     } else {
       alert(t("addressInputMsg"));
     }

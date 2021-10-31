@@ -8,7 +8,7 @@
     "waitmsg": "活动将被登记！ 请稍等一下！",
     "eventUploaded" : "活动已上传！ ",
     "eventEnded" : "活动已结束",
-    "preview Title": "请告诉我实时活动！",
+    "previewTitle": "请告诉我实时活动！",
     "preview": "预览",
     "previewMsg" : " 显示如下 " ,
     "eventEndBtn" : " 实时活动结束 " ,
@@ -23,6 +23,8 @@
     "pswd": "密码",
     "login" : " 登录 ", 
     "signup":"注册",
+    "signupCompleted":"注册成功",
+    "uploadCompleted":"上转成功",
     
     "storeInfo": "店铺信息",
     "rtmDcInfo" :"实时折扣信息",

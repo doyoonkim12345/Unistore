@@ -23,6 +23,8 @@
     "pswd":"비밀번호",
     "login":"로그인",
     "signup":"회원가입",
+    "signupCompleted":"회원가입이 완료 되었습니다!",
+    "uploadCompleted":"업로드가 완료되었습니다!",
 
     "storeInfo":"가게정보",
     "rtmDcInfo":"실시간 할인 정보",
