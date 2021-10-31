@@ -38,7 +38,14 @@ export default function StoreList() {
   }, []);
 
   const mapCallback = (eachData) => {
-    return <StoreContext rtmData={eachData} storeData={eachData} />;
+    return (
+      <StoreContext
+        rtmData={eachData}
+        storeData={eachData}
+        menuUrl={eachData.menuUrl}
+        imgUrl={eachData.imgUrl}
+      />
+    );
   };
 
   const sortedFrontData = store.filter((data) => {

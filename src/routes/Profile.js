@@ -11,6 +11,10 @@ function LogOut() {
     authService.signOut();
     history.push("/login");
   };
-  return <button onClick={onLogOutClick}>{t("logout")}</button>;
+  return (
+    <button type="button" onClick={onLogOutClick}>
+      {t("logout")}
+    </button>
+  );
 }
 export default LogOut;

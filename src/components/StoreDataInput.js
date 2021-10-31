@@ -41,9 +41,12 @@ export default function StoreDataInput({
           if (!data.data()) {
             setDownloadData({});
           } else {
+            console.log(data.data());
             setDownloadData(data.data());
+            setImgUrl(data.data().imgUrl);
+            setMenuUrl(data.data().menuUrl);
+            getXY(data.data().isAddress);
           }
-          getXY(data.data().isAddress);
         })();
       }
     },
@@ -196,6 +199,8 @@ export default function StoreDataInput({
             <h4>{t("previewMsg")}</h4>
             <StoreContext
               storeData={downloadData}
+              imgUrl={imgUrl}
+              menuUrl={menuUrl}
               xy={addressXY}
               rtmData={{}}
               isSet={true}

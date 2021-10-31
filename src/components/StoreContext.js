@@ -25,14 +25,15 @@ const defaultRtmData = {
   realTime: "ex)맥주1+1",
   startTime: 9,
   endTime: 10,
-  imgUrl:
-    "https://www.pacificfoodmachinery.com.au/media/catalog/product/placeholder/default/no-product-image-400x400_7.png",
+  imgUrl: "placeholder.png",
   startAm: false, // true= am false= pm
   endAm: false,
   status: true,
 };
 
 export default function StoreContext({
+  imgUrl = defaultRtmData.imgUrl,
+  menuUrl = defaultRtmData.imgUrl,
   storeData = defaultStoreData,
   xy,
   rtmData = defaultRtmData,
@@ -125,7 +126,7 @@ export default function StoreContext({
 
   return (
     <ContentBox>
-      <ImgBox imgUrl={storeData.imgUrl} onClick={onImgClick}>
+      <ImgBox imgUrl={imgUrl} onClick={onImgClick}>
         {isOn && (
           <TimeBox>
             <span className="discountContainer">{rtmData.realTime}</span>
@@ -154,11 +155,7 @@ export default function StoreContext({
       </ButtonContainer>
       {(isMenuOn || isImgOn) && (
         <MenuViewer
-          imgUrl={
-            isMenuOn
-              ? /*메뉴이미지*/ storeData.menuUrl
-              : storeData.imgUrl /*메인이미지*/
-          }
+          imgUrl={isMenuOn ? /*메뉴이미지*/ menuUrl : imgUrl /*메인이미지*/}
         >
           <button onClick={onClick}>
             <CgClose size={30} />

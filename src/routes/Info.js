@@ -9,7 +9,6 @@ import {
   RtmEventContainer,
   RtmInputForm,
 } from "../components/styles/infoStyle";
-import LogOut from "./Profile";
 
 const defaultStoreData = {
   name: "란탕수육 이대점",
@@ -126,7 +125,13 @@ function Info() {
       <div className="preview">
         <h3>{t("preview")}</h3>
         <h4>{t("previewMsg")}</h4>
-        <StoreContext rtmData={rtmData} storeData={storeData} isSet={true} />
+        <StoreContext
+          rtmData={rtmData}
+          storeData={storeData}
+          isSet={true}
+          menuUrl={storeData.menuUrl}
+          imgUrl={storeData.imgUrl}
+        />
         {dataStatus.status && (
           <button className="rtmOff" onClick={onDeleteClick}>
             {t("eventEndBtn")}
@@ -176,7 +181,6 @@ function Info() {
         <button className="rtmOn" type="submit">
           {dataStatus.status ? t("evnetEdit") : t("eventOnBtn")}
         </button>
-        <LogOut />
       </RtmInputForm>
     </RtmEventContainer>
   );
